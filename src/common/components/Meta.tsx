@@ -5,9 +5,8 @@ interface MetaProps {
   noIndex?: boolean;
 }
 
-const APP_NAME = "ApexGuessr";
-const DEFAULT_DESCRIPTION =
-  "Test your knowledge of motorsport circuits from around the world. Identify the track and pinpoint its location on the map in this GeoGuessr-inspired game.";
+const APP_NAME = "portfolio";
+const DEFAULT_DESCRIPTION = "Yann Mazita's portfolio";
 
 export const Meta: React.FC<MetaProps> = ({
   title,
@@ -15,7 +14,7 @@ export const Meta: React.FC<MetaProps> = ({
   noIndex = false,
 }) => {
   const pageTitle = title ? `${title} | ${APP_NAME}` : APP_NAME;
-  const pageDescription = description || DEFAULT_DESCRIPTION;
+  const pageDescription = description ?? DEFAULT_DESCRIPTION;
 
   return (
     <>
