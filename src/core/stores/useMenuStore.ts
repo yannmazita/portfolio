@@ -1,10 +1,10 @@
 // src/core/stores/useMenuStore.ts
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { navigationItems } from "@/common/utils/navigation";
+import { navigationItems, NavigationItem } from "@/common/utils/navigation";
 
 interface MenuState {
-  items: string[];
+  items: NavigationItem[];
   selectedIndex: number;
   selectNext: () => void;
   selectPrevious: () => void;
@@ -15,7 +15,8 @@ export const useMenuStore = create<MenuState>()(
   devtools(
     (set) => ({
       items: navigationItems,
-      selectedIndex: navigationItems.indexOf("HOME"),
+      // Find the index of the 'HOME' item for the initial state
+      selectedIndex: navigationItems.findIndex((item) => item.id === "home"),
 
       selectNext: () =>
         set((state) => ({

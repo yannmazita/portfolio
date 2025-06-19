@@ -9,8 +9,8 @@ export const routes: RouteObject[] = [
       {
         index: true,
         lazy: async () => {
-          const { Home } = await import("@/features/home/components/Home");
-          return { Component: Home };
+          const { App } = await import("@/App.tsx");
+          return { Component: App };
         },
       },
     ],
