@@ -25,8 +25,8 @@ export const CookieConsentBanner: React.FC = () => {
     <div
       data-state={isHiding ? "closed" : "open"}
       className={cn(
-        "bg-background fixed right-0 bottom-0 left-0 z-50 p-4",
-        "border-border border-t text-center text-sm text-black",
+        "fixed right-0 bottom-0 left-0 z-50 bg-black p-4",
+        "border-portfolio-primary text-portfolio-primary border-t text-center text-sm",
         "animate-in slide-in-from-bottom duration-300",
         "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=closed]:duration-300",
       )}

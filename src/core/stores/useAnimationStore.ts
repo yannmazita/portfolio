@@ -21,7 +21,7 @@ interface AnimationState {
   topMounted: boolean;
   /** Controls the animation state for the navigation buttons. */
   sidesMounted: boolean;
-  /** Controls the animation state for the primary text content (e.g., on the Home section). */
+  /** Controls the animation state for the primary text content (like in the Home section). */
   textMounted: boolean;
   /**
    * Triggers the staggered mount animation sequence.
