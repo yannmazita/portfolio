@@ -2,6 +2,7 @@
 import { cn } from "@/common/shadcn/lib/utils";
 import { useTypewriter } from "../hooks/useTypewriter";
 import { Terminal } from "./Terminal";
+import { SystemStats } from "./SystemStats";
 
 const TYPING_SEQUENCE: string[] = [
   "Connecting to console...",
@@ -30,9 +31,11 @@ export const HomeSection: React.FC = () => {
         {isComplete && (
           <div
             className={cn(
-              "animate-in fade-in slide-in-from-bottom-8 mt-4 delay-300 duration-1000",
+              "animate-in fade-in slide-in-from-bottom-8 mt-4 duration-1000",
             )}
-          ></div>
+          >
+            <SystemStats />
+          </div>
         )}
       </div>
     </section>
