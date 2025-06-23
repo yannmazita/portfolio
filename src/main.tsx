@@ -17,7 +17,7 @@ const root = createRoot(rootElement);
 if (typeof window !== "undefined") {
   if (import.meta.env.DEV) {
     scan({
-      enabled: true,
+      enabled: false,
       log: false,
     });
   }

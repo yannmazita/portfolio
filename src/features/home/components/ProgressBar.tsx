@@ -12,7 +12,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   className,
   barColor,
 }) => {
-  const width = Math.max(0, Math.min(100, value));
+  const scale = Math.max(0, Math.min(100, value)) / 100;
 
   return (
     <div
@@ -23,10 +23,10 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     >
       <div
         className={cn(
-          "h-full transition-[width] duration-300 ease-in-out",
+          "h-full w-full origin-left",
           barColor ?? "bg-portfolio-primary",
         )}
-        style={{ width: `${width}%` }}
+        style={{ transform: `scaleX(${scale})` }}
       />
     </div>
   );

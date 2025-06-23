@@ -11,14 +11,16 @@ export const CpuStats: React.FC<CpuStatsProps> = ({ usages }) => {
     <div className="grid grid-cols-1 gap-x-4 gap-y-1 px-2 sm:grid-cols-2">
       {CPU_CORES.map((core, index) => (
         <div key={core.id} className="flex items-center gap-2 text-sm">
-          <span className="w-4 text-right text-white/70">{core.id}</span>
+          <span className="w-6 shrink-0 text-right text-white/70">
+            {core.id}
+          </span>
           <div className="flex-1">
             <ProgressBar value={usages[index] ?? 0} />
           </div>
-          <span className="text-portfolio-secondary w-16 text-left font-mono">
+          <span className="text-portfolio-secondary w-20 shrink-0 text-left font-mono">
             [{core.name}]
           </span>
-          <span className="w-12 text-right text-white">
+          <span className="w-12 shrink-0 text-right text-white">
             {(usages[index] ?? 0).toFixed(1)}%
           </span>
         </div>
