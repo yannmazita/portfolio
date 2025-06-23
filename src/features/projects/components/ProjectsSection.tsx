@@ -5,7 +5,9 @@ export const ProjectsSection: React.FC = () => {
       id="projects"
       className="flex min-h-screen items-center justify-center"
     >
-      <h2 className="text-4xl font-bold uppercase">Projects</h2>
+      <h1 className="text-4xl font-extrabold tracking-widest text-white uppercase md:text-7xl lg:text-8xl">
+        Projects
+      </h1>
     </section>
   );
 };
