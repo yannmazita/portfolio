@@ -8,7 +8,7 @@ import { create } from "zustand";
  * - The `delays` in `triggerMountAnimation` are JavaScript `setTimeout` values.
  *   They act as a director, telling components when to begin their entrance.
  *
- * - The actual animation *speed* and *style* (ex: "fade in over 500ms")
+ * - The actual animation speed and style (ex: "fade in over 500ms")
  *   are defined in the components' CSS classes (ex: `duration-500`).
  *
  * This separation allows us to orchestrate a complex sequence from one
@@ -44,9 +44,6 @@ export const useAnimationStore = create<AnimationState>((set) => ({
     // Default delays for the animation sequence.
     delays = { topDelay: 100, sidesDelay: 800, textDelay: 500 },
   ) => {
-    // Prevent animations from re-triggering on hot-reloads in dev mode.
-    if (useAnimationStore.getState().topMounted) return;
-
     setTimeout(() => set({ topMounted: true }), delays.topDelay);
     setTimeout(() => set({ sidesMounted: true }), delays.sidesDelay);
     setTimeout(() => set({ textMounted: true }), delays.textDelay);

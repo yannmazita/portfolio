@@ -1,8 +1,10 @@
 // src/common/components/Layout/NavigationBar/NavigationButton.tsx
 import { cn } from "@/common/shadcn/lib/utils";
+import { CSSProperties } from "react";
 
 interface NavigationButtonProps {
   className?: string;
+  style?: CSSProperties;
   children?: React.ReactNode;
   isActive?: boolean;
   onClick?: () => void;
@@ -10,6 +12,7 @@ interface NavigationButtonProps {
 
 export const NavigationButton: React.FC<NavigationButtonProps> = ({
   className,
+  style,
   children,
   isActive = false,
   onClick,
@@ -22,6 +25,7 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
         isActive ? "bg-portfolio-secondary" : "bg-portfolio-primary",
         className,
       )}
+      style={style}
     >
       {children}
     </button>
