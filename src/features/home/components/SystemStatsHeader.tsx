@@ -1,5 +1,10 @@
 // src/features/home/components/SystemStatsHeader.tsx
 import { useState, useEffect } from "react";
+import { cn } from "@/common/shadcn/lib/utils";
+
+interface SystemStatsHeaderProps {
+  className?: string;
+}
 
 // Helper to format seconds into HH:MM:SS
 const formatTime = (totalSeconds: number) => {
@@ -13,8 +18,10 @@ const formatTime = (totalSeconds: number) => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
-export const SystemStatsHeader: React.FC = () => {
-  // Start uptime from a random-ish high number to look authentic
+export const SystemStatsHeader: React.FC<SystemStatsHeaderProps> = ({
+  className,
+}) => {
+  // Start uptime from a random-ish high number to look "authentic"
   const [uptime, setUptime] = useState(3 * 24 * 3600 + 14 * 3600 + 25 * 60); // 3d 14h 25m
 
   useEffect(() => {
@@ -26,7 +33,12 @@ export const SystemStatsHeader: React.FC = () => {
   }, []);
 
   return (
-    <div className="mb-2 flex items-baseline justify-between px-2 text-sm text-white/90">
+    <div
+      className={cn(
+        "flex items-baseline justify-between p-2 text-sm text-white/90",
+        className,
+      )}
+    >
       <h2 className="text-lg font-bold text-white">SYSTEM STATUS</h2>
       <span>
         Uptime:{" "}

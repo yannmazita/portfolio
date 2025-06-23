@@ -8,7 +8,7 @@ interface CpuStatsProps {
 
 export const CpuStats: React.FC<CpuStatsProps> = ({ usages }) => {
   return (
-    <div className="grid grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-x-4 gap-y-1 px-2 sm:grid-cols-2">
       {CPU_CORES.map((core, index) => (
         <div key={core.id} className="flex items-center gap-2 text-sm">
           <span className="w-4 text-right text-white/70">{core.id}</span>

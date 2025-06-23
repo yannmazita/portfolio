@@ -20,7 +20,7 @@ export const HomeSection: React.FC = () => {
   return (
     <section
       id="home"
-      className="flex min-h-screen flex-col items-center justify-center px-4 text-center"
+      className="flex min-h-screen flex-col items-center justify-center text-center"
     >
       <div
         className={cn(

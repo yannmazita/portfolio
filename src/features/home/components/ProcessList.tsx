@@ -1,4 +1,3 @@
-// src/features/home/components/ProcessList.tsx
 import { PROCESS_LIST } from "../utils/stats-data";
 
 export const ProcessList: React.FC = () => {
@@ -7,9 +6,9 @@ export const ProcessList: React.FC = () => {
       {/* Header */}
       <div className="flex bg-white/10 px-2 py-1 font-bold">
         <span className="w-12">PID</span>
-        <span className="w-16">USER</span>
+        <span className="hidden w-16 sm:inline-block">USER</span>
         <span className="w-12 text-right">CPU%</span>
-        <span className="w-12 text-right">MEM%</span>
+        <span className="hidden w-12 text-right sm:inline-block">MEM%</span>
         <span className="flex-1 pl-4">COMMAND</span>
       </div>
 
@@ -18,11 +17,13 @@ export const ProcessList: React.FC = () => {
         {PROCESS_LIST.map((proc) => (
           <div key={proc.pid} className="flex px-2 hover:bg-white/5">
             <span className="w-12 text-white">{proc.pid}</span>
-            <span className="text-portfolio-secondary w-16">{proc.user}</span>
+            <span className="text-portfolio-secondary hidden w-16 sm:inline-block">
+              {proc.user}
+            </span>
             <span className="w-12 text-right text-white/80">
               {proc.cpu.toFixed(1)}
             </span>
-            <span className="w-12 text-right text-white/80">
+            <span className="hidden w-12 text-right text-white/80 sm:inline-block">
               {proc.mem.toFixed(1)}
             </span>
             <span className="flex-1 truncate pl-4 text-white/70">
