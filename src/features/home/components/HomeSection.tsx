@@ -1,5 +1,4 @@
 // src/features/home/components/HomeSection.tsx
-import { cn } from "@/common/shadcn/lib/utils";
 import { useTypewriter } from "../hooks/useTypewriter";
 import { Terminal } from "./Terminal";
 import { SystemStats } from "./SystemStats";
@@ -8,7 +7,7 @@ const TYPING_SEQUENCE: string[] = [
   "Connecting to console...",
   "Authenticating...",
   "Connection established.",
-  "Welcome, friend.",
+  "Hello, friend.",
 ];
 
 export const HomeSection: React.FC = () => {
@@ -22,16 +21,10 @@ export const HomeSection: React.FC = () => {
       id="home"
       className="flex min-h-screen flex-col items-center justify-center text-center"
     >
-      <div
-        className={cn(
-          "flex min-h-40 flex-col items-center justify-center transition-opacity duration-1000",
-        )}
-      >
+      <div className="mb-16 flex flex-col items-center justify-center">
         <Terminal lines={displayLines} isComplete={isComplete} />
         {isComplete && (
-          <div className={cn("mt-4")}>
-            <SystemStats startAnimations={isComplete} />
-          </div>
+          <SystemStats startAnimations={isComplete} className="mt-12" />
         )}
       </div>
     </section>

@@ -25,18 +25,25 @@ export const Terminal: React.FC<TerminalProps> = ({
         className,
       )}
     >
-      {lines.map((line, index) => (
-        <div key={index}>
+      {!isComplete ? (
+        lines.map((line, index) => (
+          <div key={index}>
+            <span className="text-portfolio-secondary mr-2">{">"}</span>
+            <span>{line}</span>
+            {/* Show cursor only on the last line and if not complete */}
+            {index === lines.length - 1 && (
+              <span className="animate-blink ml-1" aria-hidden="true">
+                _
+              </span>
+            )}
+          </div>
+        ))
+      ) : (
+        <>
           <span className="text-portfolio-secondary mr-2">{">"}</span>
-          <span>{line}</span>
-          {/* Show cursor only on the last line and if not complete */}
-          {index === lines.length - 1 && !isComplete && (
-            <span className="animate-blink ml-1" aria-hidden="true">
-              _
-            </span>
-          )}
-        </div>
-      ))}
+          <span>{lines[lines.length - 1]}</span>
+        </>
+      )}
     </div>
   );
 };
