@@ -40,8 +40,8 @@ export const useSimpleTypewriter = (
       let i = 0;
       const typingInterval = setInterval(() => {
         if (i < text.length) {
-          setDisplayText((prev) => prev + text.charAt(i));
           i++;
+          setDisplayText(text.substring(0, i));
         } else {
           clearInterval(typingInterval);
           setIsTyping(false);
