@@ -22,7 +22,7 @@ const MessageSeparator = () => <span className="mx-8 opacity-50">--</span>;
 
 export const StatusBar: React.FC = () => {
   return (
-    <div className="bg-portfolio-primary clip-bl group mb-0.5 flex h-8 w-full items-center overflow-hidden font-mono text-xs text-white">
+    <div className="bg-portfolio-primary clip-bl group text-md mb-0.5 flex h-8 w-full items-center overflow-hidden font-mono text-white">
       <div className="animate-marquee group-hover:paused flex whitespace-nowrap">
         {/* Render the list twice for a seamless loop */}
         {SCROLLING_MESSAGES.map((message, index) => (
