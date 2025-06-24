@@ -60,7 +60,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
               : "0ms",
           }}
         >
-          GitHub
+          GITHUB
         </a>
       </div>
     </nav>
