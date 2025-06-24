@@ -13,7 +13,7 @@ const TYPING_SEQUENCE: string[] = [
 
 export const HomeSection: React.FC = () => {
   const { displayLines, isComplete } = useTypewriter(TYPING_SEQUENCE, {
-    speed: 30,
+    speed: 15,
     lineDelay: 100,
   });
 
@@ -29,12 +29,8 @@ export const HomeSection: React.FC = () => {
       >
         <Terminal lines={displayLines} isComplete={isComplete} />
         {isComplete && (
-          <div
-            className={cn(
-              "animate-in fade-in slide-in-from-bottom-8 mt-4 duration-1000",
-            )}
-          >
-            <SystemStats />
+          <div className={cn("mt-4")}>
+            <SystemStats startAnimations={isComplete} />
           </div>
         )}
       </div>

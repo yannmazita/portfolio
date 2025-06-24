@@ -1,6 +1,15 @@
 import { PROCESS_LIST } from "../utils/stats-data";
+import { TypedText } from "./TypedText";
 
-export const ProcessList: React.FC = () => {
+/**
+ * @interface ProcessListProps
+ * @field startTyping - When true, the typing animation will begin.
+ */
+interface ProcessListProps {
+  startTyping: boolean;
+}
+
+export const ProcessList: React.FC<ProcessListProps> = ({ startTyping }) => {
   return (
     <div className="font-mono text-xs text-white/90">
       {/* Header */}
@@ -27,7 +36,7 @@ export const ProcessList: React.FC = () => {
               {proc.mem.toFixed(1)}
             </span>
             <span className="flex-1 truncate pl-4 text-white/70">
-              {proc.command}
+              <TypedText text={proc.command} start={startTyping} />
             </span>
           </div>
         ))}
