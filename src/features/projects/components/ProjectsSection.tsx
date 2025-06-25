@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { useLightning } from "../hooks/useLightning";
 import { random } from "@/common/utils/math";
+import { ProjectSelection } from "./ProjectSelection";
 
 export const ProjectsSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -46,9 +47,7 @@ export const ProjectsSection: React.FC = () => {
       id="projects"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
     >
-      <h1 className="text-4xl font-extrabold tracking-widest text-white uppercase md:text-7xl lg:text-8xl">
-        Projects
-      </h1>
+      <ProjectSelection className="z-10 justify-start" />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
     </section>
   );
