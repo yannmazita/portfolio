@@ -4,7 +4,7 @@ import { useLightning } from "../hooks/useLightning";
 
 export const ProjectsSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  useLightning(canvasRef);
+  useLightning(canvasRef, { minCreateCount: 10, maxCreateCount: 30 });
 
   return (
     <section
