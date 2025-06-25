@@ -12,7 +12,7 @@ const TYPING_SEQUENCE: string[] = [
 
 export const HomeSection: React.FC = () => {
   const { displayLines, isComplete } = useTypewriter(TYPING_SEQUENCE, {
-    speed: 15,
+    speed: 30,
     lineDelay: 100,
   });
 
