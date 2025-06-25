@@ -7,7 +7,7 @@ export const ProjectsSection: React.FC = () => {
   useLightning(canvasRef, {
     minCreateCount: 10,
     maxCreateCount: 30,
-    fadeoutColor: "rgba(0, 0, 0, 0.05)",
+    trailLength: 30,
   });
 
   return (
@@ -15,11 +15,9 @@ export const ProjectsSection: React.FC = () => {
       id="projects"
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/*
       <h1 className="text-4xl font-extrabold tracking-widest text-white uppercase md:text-7xl lg:text-8xl">
         Projects
       </h1>
-      */}
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
     </section>
   );
