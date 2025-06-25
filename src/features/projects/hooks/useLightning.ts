@@ -1,5 +1,5 @@
 // src/features/projects/hooks/useLightning.ts
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, RefObject } from "react";
 import { LightningBolt, LightningOptions } from "../types";
 import { random } from "@/common/utils/math";
 
@@ -33,6 +33,9 @@ const DEFAULT_LIGHTNING_OPTIONS: LightningOptions = {
  * @hook useLightning
  * Renders a continuous, generative lightning effect onto a canvas element.
  * It handles the animation loop, canvas resizing, and all drawing logic internally.
+ * The hook reads its dimensions from the canvas element, so the canvas MUST be
+ * styled with a width and height (ex: using CSS or Tailwind classes) for the
+ * effect to be visible.
  *
  * @param canvasRef - Ref object pointing to the canvas element where the animation will be drawn.
  * @param options - Optional object to override the default lightning effect parameters. See `LightningOptions` for all available properties.
@@ -40,23 +43,18 @@ const DEFAULT_LIGHTNING_OPTIONS: LightningOptions = {
  * @example
  * const MyComponent = () => {
  *   const canvasRef = useRef(null);
- *
- *   // Use with default settings
  *   useLightning(canvasRef);
  *
- *   // Or customize it
- *   const customOptions = {
- *     strokeColor: 'rgba(255, 0, 0, 0.8)',
- *     blurColor: 'rgba(255, 0, 0, 0.5)',
- *     maxDelay: 20,
- *   };
- *   useLightning(canvasRef, customOptions);
- *
- *   return <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />;
+ *   // The parent element should have a positioning context (ex: `relative`).
+ *   return (
+ *     <div className="relative h-screen w-full">
+ *       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+ *     </div>
+ *   );
  * }
  */
 export const useLightning = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
+  canvasRef: RefObject<HTMLCanvasElement>,
   options: Partial<LightningOptions> = {},
 ) => {
   const animationFrameId = useRef<number | null>(null);
@@ -70,8 +68,8 @@ export const useLightning = (
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let w = (canvas.width = window.innerWidth);
-    let h = (canvas.height = window.innerHeight);
+    let w: number;
+    let h: number;
 
     const lightning: LightningBolt[] = [];
     let lightTimeCurrent = 0;
@@ -206,13 +204,14 @@ export const useLightning = (
     };
 
     const handleResize = () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
+      w = canvas.width = canvas.offsetWidth;
+      h = canvas.height = canvas.offsetHeight;
       // Clear existing lightning on resize to prevent weird artifacts
       lightning.length = 0;
     };
 
     window.addEventListener("resize", handleResize);
+    handleResize(); // Set initial size
     animate();
 
     return () => {
