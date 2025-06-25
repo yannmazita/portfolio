@@ -1,6 +1,54 @@
 // src/features/projects/types.ts
 
 /**
+ * Defines where lightning bolts can start
+ * - 'edges': Random edge (default behavior)
+ * - 'top' | 'right' | 'bottom' | 'left': Specific edge
+ * - Custom function returning {x, y} coordinates
+ */
+export type StartPosition =
+  | "edges"
+  | "top"
+  | "right"
+  | "bottom"
+  | "left"
+  | ((canvasWidth: number, canvasHeight: number) => { x: number; y: number });
+
+/**
+ * Controls position distribution along edges
+ * - 'uniform': Even distribution (default)
+ * - 'center': Bias toward center of edge
+ * - 'corners': Bias toward corners
+ * - Custom function returning 0-1 value for position along edge
+ */
+export type PositionBias =
+  | "uniform"
+  | "center"
+  | "corners"
+  | ((random: number) => number);
+
+/**
+ * Defines initial velocity vectors
+ * - 'inward': Points toward canvas interior (default)
+ * - 'outward': Points away from canvas
+ * - 'random': Random direction
+ * - number: Fixed angle in radians
+ * - Custom function returning {vx, vy} normalized vector
+ */
+export type StartVelocity =
+  | "inward"
+  | "outward"
+  | "random"
+  | number
+  | ((
+      edge: "top" | "right" | "bottom" | "left",
+      x: number,
+      y: number,
+      canvasWidth: number,
+      canvasHeight: number,
+    ) => { vx: number; vy: number });
+
+/**
  * @interface LightningBolt
  *
  * Represents the state and properties of a single lightning bolt instance.
@@ -47,6 +95,9 @@ export interface LightningBolt {
  * @field blurColor - The color of the glow/blur effect.
  * @field strokeColor - The primary color of the lightning bolt itself.
  * @field trailLength - The number of frames to keep trails.
+ * @field startPosition - Defines where new lightning bolts originate. Can be a predefined string ('edges', 'top', etc.) or a custom function.
+ * @field startPositionBias - When using an edge-based `startPosition`, controls the distribution of bolts along that edge.
+ * @field startVelocity - Defines initial direction vector for new lightning bolts. Can be a predefined string, a fixed angle (in radians), or a custom function. The vector will be normalized internally.
  */
 export interface LightningOptions {
   // Timing
@@ -72,4 +123,9 @@ export interface LightningOptions {
   blurColor: string;
   strokeColor: string;
   trailLength: number;
+
+  // Starting position and velocity
+  startPosition?: StartPosition;
+  startPositionBias?: PositionBias;
+  startVelocity?: StartVelocity;
 }
