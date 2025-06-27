@@ -50,32 +50,32 @@ export const ProjectsSection: React.FC = () => {
   return (
     <section
       id="projects"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-4 sm:p-6 md:p-8"
     >
       {/* Container for the image and canvas to ensure perfect alignment */}
       <div className="relative aspect-[16/9] w-full max-w-[1280px]">
         {/* This container scales the image to fit inside the lightning perimeter */}
         <div
-          className={cn(
-            "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-            `h-[${perimeterSize}%]`,
-            `w-[${perimeterSize}%]`,
-          )}
+          className="absolute top-1/2 left-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: `${perimeterSize}%`,
+            height: `${perimeterSize}%`,
+          }}
         >
           <img
             src={projects[projectIndex].mediaUrl}
-            alt={`${projects[projectIndex].name} thumbnail/video`}
-            className="h-full w-full object-cover"
+            alt={`${projects[projectIndex].name} timelapse`}
+            className="h-full w-full object-cover text-white"
           />
         </div>
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       </div>
 
-      <div className="absolute bottom-96 flex flex-row gap-x-10">
-        <button onClick={handlePreviousButton} className="text-white">
+      <div className="mt-8 flex flex-row gap-x-10">
+        <button onClick={handlePreviousButton} className="px-4 py-2 text-white">
           Previous
         </button>
-        <button onClick={handleNextButton} className="text-white">
+        <button onClick={handleNextButton} className="px-4 py-2 text-white">
           Next
         </button>
       </div>
