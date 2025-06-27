@@ -92,8 +92,33 @@ export const useLightning = (
       if (typeof config.perimeterSize === "function") {
         return config.perimeterSize(w, h);
       }
+
+      const scale = config.perimeterSize as number;
+
+      // Handle aspect ratio
+      if (config.perimeterAspectRatio) {
+        const containerWidth = w * scale;
+        const containerHeight = h * scale;
+        const targetAspectRatio = config.perimeterAspectRatio;
+
+        let rectWidth: number;
+        let rectHeight: number;
+
+        // Determine if the container is wider or taller than the target aspect ratio
+        if (containerWidth / containerHeight > targetAspectRatio) {
+          // Container is wider, so height is the limiting dimension
+          rectHeight = containerHeight;
+          rectWidth = rectHeight * targetAspectRatio;
+        } else {
+          // Container is taller or has the same aspect ratio, so width is the limiting dimension
+          rectWidth = containerWidth;
+          rectHeight = rectWidth / targetAspectRatio;
+        }
+        return { width: rectWidth, height: rectHeight };
+      }
+
       // Default to a square based on the smaller canvas dimension
-      const size = Math.min(w, h) * (config.perimeterSize as number);
+      const size = Math.min(w, h) * scale;
       return { width: size, height: size };
     };
 

@@ -1,4 +1,5 @@
 // src/features/projects/components/ProjectsSection.tsx
+
 import { useRef } from "react";
 import { useLightning } from "../hooks/useLightning";
 
@@ -7,12 +8,8 @@ export const ProjectsSection: React.FC = () => {
 
   useLightning(canvasRef, {
     perimeterMode: "rectangle",
-    perimeterSize: (w, h) => {
-      return {
-        width: w / 2,
-        height: h / 2,
-      };
-    },
+    perimeterSize: 0.85,
+    perimeterAspectRatio: 16 / 9,
     perimeterBidirectional: true,
 
     minDelay: 5,
@@ -40,7 +37,10 @@ export const ProjectsSection: React.FC = () => {
       id="projects"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 h-full w-full max-w-[1280px]"
+      />
     </section>
   );
 };
