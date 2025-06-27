@@ -48,6 +48,14 @@ export type StartVelocity =
       canvasHeight: number,
     ) => { vx: number; vy: number });
 
+/*
+ * Defines perimeter shapes that bolts can follow
+ * - 'none': Standard free-form lightning (default)
+ * - 'square': Bolts follow a rectangular perimeter
+ * - 'circle': Bolts follow a circular perimeter
+ */
+export type PerimeterMode = "none" | "rectangle" | "circle";
+
 /**
  * @interface LightningBolt
  *
@@ -61,6 +69,8 @@ export type StartVelocity =
  * @field pathLimit - The maximum number of segments the bolt can have before it is removed.
  * @field speed - The base speed, influencing the length of each new segment.
  * @field turniness - A factor determining how much the bolt's direction can change per frame.
+ * @field perimeterProgress - Optional 0-1 porgress along perimeter
+ * @field perimeterDirection - Optional clockwise (1) or counter-clockwise (-1)
  */
 export interface LightningBolt {
   x: number;
@@ -72,6 +82,8 @@ export interface LightningBolt {
   speed: number;
   turniness: number;
   lineWidth: number;
+  perimeterProgress?: number; // 0-1 progress along perimeter
+  perimeterDirection?: 1 | -1; // Clockwise (1) or counter-clockwise (-1)
 }
 
 /**
@@ -128,4 +140,22 @@ export interface LightningOptions {
   startPosition?: StartPosition;
   startPositionBias?: PositionBias;
   startVelocity?: StartVelocity;
+
+  // Perimeter mode
+  perimeterMode?: PerimeterMode;
+  /*
+   * Defines the size of the perimeter.
+   * - number: A multiplier for the smaller canvas dimension to create a square. (e.g., 0.6 for 60%)
+   * - function: A function returning {width, height} in pixels for a custom rectangle.
+   */
+  perimeterSize?:
+    | number
+    | ((
+        canvasWidth: number,
+        canvasHeight: number,
+      ) => {
+        width: number;
+        height: number;
+      });
+  perimeterBidirectional?: boolean; // Allow both clockwise and counter-clockwise
 }

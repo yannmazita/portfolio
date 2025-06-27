@@ -32,6 +32,11 @@ const DEFAULT_LIGHTNING_OPTIONS: LightningOptions = {
   startPosition: "edges",
   startPositionBias: "uniform",
   startVelocity: "inward",
+
+  // Perimeter mode
+  perimeterMode: "none",
+  perimeterSize: 0.6, // Default to a square 60% of the smaller canvas dimension
+  perimeterBidirectional: false,
 };
 
 interface TrailSegment {
@@ -51,19 +56,6 @@ interface TrailSegment {
  *
  * @param canvasRef - Ref object pointing to the canvas element where the animation will be drawn.
  * @param options - Optional object to override the default lightning effect parameters. See `LightningOptions` for all available properties.
- *
- * @example
- * const MyComponent = () => {
- *   const canvasRef = useRef(null);
- *   useLightning(canvasRef);
- *
- *   // The parent element should have a positioning context (ex: `relative`).
- *   return (
- *     <div className="relative h-screen w-full">
- *       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
- *     </div>
- *   );
- * }
  */
 export const useLightning = (
   canvasRef: RefObject<HTMLCanvasElement>,
@@ -88,15 +80,82 @@ export const useLightning = (
     let lightTimeCurrent = 0;
     let lightTimeTotal = random(config.minDelay, config.maxDelay);
 
-    // Time-related variables for the fixed-timestep loop
     let lastTime = performance.now();
     let accumulator = 0;
-    const timestep = 1000 / 60; // Run physics at 60 updates per second
-    const trailDuration = config.trailLength * timestep; // Convert trailLength from ticks to ms
+    const timestep = 1000 / 60;
+    const trailDuration = config.trailLength * timestep;
 
     /**
-     * Generates starting position based on configuration
+     * Resolves perimeterSize option into pixel dimensions.
      */
+    const getRectangleDimensions = (): { width: number; height: number } => {
+      if (typeof config.perimeterSize === "function") {
+        return config.perimeterSize(w, h);
+      }
+      // Default to a square based on the smaller canvas dimension
+      const size = Math.min(w, h) * (config.perimeterSize as number);
+      return { width: size, height: size };
+    };
+
+    /**
+     * Gets position on a rectangular perimeter based on progress (0-1).
+     */
+    const getRectanglePerimeterPosition = (
+      progress: number,
+      rectWidth: number,
+      rectHeight: number,
+    ): { x: number; y: number } => {
+      const centerX = w / 2;
+      const centerY = h / 2;
+      const halfW = rectWidth / 2;
+      const halfH = rectHeight / 2;
+
+      const perimeter = 2 * (rectWidth + rectHeight);
+      if (perimeter === 0) return { x: centerX, y: centerY };
+
+      // Progress thresholds for each edge
+      const topEdgeProgress = rectWidth / perimeter;
+      const rightEdgeProgress = rectHeight / perimeter;
+      const bottomEdgeProgress = rectWidth / perimeter;
+
+      const p1 = topEdgeProgress;
+      const p2 = p1 + rightEdgeProgress;
+      const p3 = p2 + bottomEdgeProgress;
+
+      progress = progress % 1;
+      if (progress < 0) progress += 1;
+
+      if (progress < p1) {
+        // Top edge: left to right
+        const edgeProgress = progress / p1;
+        return {
+          x: centerX - halfW + edgeProgress * rectWidth,
+          y: centerY - halfH,
+        };
+      } else if (progress < p2) {
+        // Right edge: top to bottom
+        const edgeProgress = (progress - p1) / rightEdgeProgress;
+        return {
+          x: centerX + halfW,
+          y: centerY - halfH + edgeProgress * rectHeight,
+        };
+      } else if (progress < p3) {
+        // Bottom edge: right to left
+        const edgeProgress = (progress - p2) / bottomEdgeProgress;
+        return {
+          x: centerX + halfW - edgeProgress * rectWidth,
+          y: centerY + halfH,
+        };
+      } else {
+        // Left edge: bottom to top
+        const edgeProgress = (progress - p3) / (1 - p3);
+        return {
+          x: centerX - halfW,
+          y: centerY + halfH - edgeProgress * rectHeight,
+        };
+      }
+    };
+
     const getStartPosition = (): {
       x: number;
       y: number;
@@ -104,10 +163,8 @@ export const useLightning = (
     } => {
       const { startPosition, startPositionBias } = config;
 
-      // Handle custom position function
       if (typeof startPosition === "function") {
         const pos = startPosition(w, h);
-        // Determine which edge we're closest to
         const distances = {
           top: pos.y,
           right: w - pos.x,
@@ -120,11 +177,9 @@ export const useLightning = (
             ? a
             : b,
         )[0] as "top" | "right" | "bottom" | "left";
-
         return { ...pos, edge };
       }
 
-      // Determine which edge to use
       let edge: "top" | "right" | "bottom" | "left";
       if (startPosition === "edges") {
         const edgeIndex = Math.floor(random(0, 4));
@@ -133,20 +188,16 @@ export const useLightning = (
         edge = startPosition!;
       }
 
-      // Apply position bias
       let positionAlongEdge = random(0, 1);
       if (startPositionBias === "center") {
-        // Bell curve distribution toward center
         positionAlongEdge = (random(0, 1) + random(0, 1)) / 2;
       } else if (startPositionBias === "corners") {
-        // Bias toward corners
         positionAlongEdge =
           random(0, 1) < 0.5 ? random(0, 0.2) : random(0.8, 1);
       } else if (typeof startPositionBias === "function") {
         positionAlongEdge = startPositionBias(positionAlongEdge);
       }
 
-      // Calculate actual position
       let x: number, y: number;
       switch (edge) {
         case "top":
@@ -166,42 +217,27 @@ export const useLightning = (
           y = positionAlongEdge * h;
           break;
       }
-
       return { x, y, edge };
     };
 
-    /**
-     * Generates velocity vector based on configuration
-     */
     const getStartVelocity = (
       edge: "top" | "right" | "bottom" | "left",
       x: number,
       y: number,
     ): { vx: number; vy: number } => {
       const { startVelocity } = config;
-
-      // Handle custom velocity function
       if (typeof startVelocity === "function") {
         return startVelocity(edge, x, y, w, h);
       }
-
-      // Handle angle
       if (typeof startVelocity === "number") {
-        return {
-          vx: Math.cos(startVelocity),
-          vy: Math.sin(startVelocity),
-        };
+        return { vx: Math.cos(startVelocity), vy: Math.sin(startVelocity) };
       }
-
-      // Handle named directions
       let vx: number, vy: number;
-
       if (startVelocity === "random") {
         const angle = random(0, Math.PI * 2);
         vx = Math.cos(angle);
         vy = Math.sin(angle);
       } else if (startVelocity === "outward") {
-        // Point away from canvas center
         const centerX = w / 2;
         const centerY = h / 2;
         const dx = x - centerX;
@@ -210,7 +246,6 @@ export const useLightning = (
         vx = mag > 0 ? dx / mag : 0;
         vy = mag > 0 ? dy / mag : 0;
       } else {
-        // 'inward' (default)
         switch (edge) {
           case "top":
             vx = random(-1, 1);
@@ -230,185 +265,219 @@ export const useLightning = (
             break;
         }
       }
-
       return { vx, vy };
     };
 
-    /**
-     * Creates new lightning bolts with configurable start positions and velocities
-     */
     const createLightning = () => {
       const createCount = Math.floor(
         random(config.minCreateCount, config.maxCreateCount),
       );
 
       for (let i = 0; i < createCount; i++) {
-        const { x, y, edge } = getStartPosition();
-        const { vx, vy } = getStartVelocity(edge, x, y);
+        if (config.perimeterMode === "rectangle") {
+          const { width: rectWidth, height: rectHeight } =
+            getRectangleDimensions();
+          const progress = random(0, 1);
+          const direction =
+            config.perimeterBidirectional && random(0, 1) > 0.5 ? -1 : 1;
+          const pos = getRectanglePerimeterPosition(
+            progress,
+            rectWidth,
+            rectHeight,
+          );
 
-        lightning.push({
-          x: x,
-          y: y,
-          vx: vx,
-          vy: vy,
-          path: [{ x: x, y: y }],
-          pathLimit: random(config.minPathLength, config.maxPathLength),
-          speed: random(config.minSpeed, config.maxSpeed),
-          turniness: random(config.minTurniness, config.maxTurniness),
-          lineWidth: random(config.minLineWidth, config.maxLineWidth),
-        });
+          lightning.push({
+            x: pos.x,
+            y: pos.y,
+            vx: 0,
+            vy: 0,
+            path: [{ x: pos.x, y: pos.y }],
+            pathLimit: random(config.minPathLength, config.maxPathLength),
+            speed: random(config.minSpeed, config.maxSpeed),
+            turniness: 0,
+            lineWidth: random(config.minLineWidth, config.maxLineWidth),
+            perimeterProgress: progress,
+            perimeterDirection: direction,
+          });
+        } else {
+          const { x, y, edge } = getStartPosition();
+          const { vx, vy } = getStartVelocity(edge, x, y);
+
+          lightning.push({
+            x,
+            y,
+            vx,
+            vy,
+            path: [{ x, y }],
+            pathLimit: random(config.minPathLength, config.maxPathLength),
+            speed: random(config.minSpeed, config.maxSpeed),
+            turniness: random(config.minTurniness, config.maxTurniness),
+            lineWidth: random(config.minLineWidth, config.maxLineWidth),
+          });
+        }
       }
     };
 
-    /**
-     * Updates the position and path of all active lightning bolts.
-     * This function is called at a fixed rate by the main loop.
-     *
-     * For each bolt:
-     * 1. Applies turniness to create natural-looking direction changes
-     * 2. Normalizes the velocity vector to maintain consistent speed
-     * 3. Calculates the next segment position with jitter for organic movement
-     * 4. Removes bolts that go off-screen or exceed their path limit
-     * 5. Transfers completed bolts to the trails array for fade-out effect
-     */
     const updateLightning = () => {
       for (let i = lightning.length - 1; i >= 0; i--) {
         const light = lightning[i];
-        const lastSegment = light.path[light.path.length - 1];
 
-        // Update direction vector with turniness
-        light.vx += random(-light.turniness, light.turniness);
-        light.vy += random(-light.turniness, light.turniness);
+        if (
+          config.perimeterMode === "rectangle" &&
+          light.perimeterProgress !== undefined
+        ) {
+          const { width: rectWidth, height: rectHeight } =
+            getRectangleDimensions();
+          const perimeter = 2 * (rectWidth + rectHeight);
 
-        // Normalize the vector
-        // Because adding turniness changes the vector length and thus the calculated
-        // speed without normalization
-        const magnitude = Math.sqrt(light.vx * light.vx + light.vy * light.vy);
-        if (magnitude > 0) {
-          light.vx /= magnitude;
-          light.vy /= magnitude;
-        }
+          if (perimeter === 0) {
+            lightning.splice(i, 1);
+            continue;
+          }
 
-        // Calculate next point
-        const segmentLength = random(light.speed * 0.5, light.speed * 1.5);
-        const jitterAmount = light.speed * 1.5;
+          const progressDelta =
+            (light.speed / perimeter) * light.perimeterDirection!;
+          light.perimeterProgress =
+            (light.perimeterProgress + progressDelta) % 1;
+          if (light.perimeterProgress < 0) light.perimeterProgress += 1;
 
-        const nextX =
-          lastSegment.x +
-          light.vx * segmentLength +
-          random(-jitterAmount, jitterAmount);
-        const nextY =
-          lastSegment.y +
-          light.vy * segmentLength +
-          random(-jitterAmount, jitterAmount);
+          const newPos = getRectanglePerimeterPosition(
+            light.perimeterProgress,
+            rectWidth,
+            rectHeight,
+          );
 
-        // Terminate if bolt goes off-screen
-        if (nextX < 0 || nextX > w || nextY < 0 || nextY > h) {
-          // Add to trails before removing
-          trails.push({
-            path: [...light.path],
-            age: 0,
-            lineWidth: light.lineWidth,
-          });
-          lightning.splice(i, 1);
-          continue;
-        }
+          const jitter = random(-2, 2);
+          const progress = light.perimeterProgress;
+          const topEdgeProgress = rectWidth / perimeter;
+          const rightEdgeProgress = rectHeight / perimeter;
+          const p1 = topEdgeProgress;
+          const p2 = p1 + rightEdgeProgress;
 
-        light.path.push({ x: nextX, y: nextY });
+          if (
+            progress < p1 ||
+            (progress >= p2 && progress < p2 + topEdgeProgress)
+          ) {
+            newPos.y += jitter; // Horizontal edge, jitter vertically
+          } else {
+            newPos.x += jitter; // Vertical edge, jitter horizontally
+          }
 
-        if (light.path.length > light.pathLimit) {
-          // Add to trails before removing
-          trails.push({
-            path: [...light.path],
-            age: 0,
-            lineWidth: light.lineWidth,
-          });
-          lightning.splice(i, 1);
+          light.path.push(newPos);
+
+          if (light.path.length > light.pathLimit) {
+            trails.push({
+              path: [...light.path],
+              age: 0,
+              lineWidth: light.lineWidth,
+            });
+            lightning.splice(i, 1);
+          }
+        } else {
+          const lastSegment = light.path[light.path.length - 1];
+          light.vx += random(-light.turniness, light.turniness);
+          light.vy += random(-light.turniness, light.turniness);
+          const magnitude = Math.sqrt(
+            light.vx * light.vx + light.vy * light.vy,
+          );
+          if (magnitude > 0) {
+            light.vx /= magnitude;
+            light.vy /= magnitude;
+          }
+          const segmentLength = random(light.speed * 0.5, light.speed * 1.5);
+          const jitterAmount = light.speed * 1.5;
+          const nextX =
+            lastSegment.x +
+            light.vx * segmentLength +
+            random(-jitterAmount, jitterAmount);
+          const nextY =
+            lastSegment.y +
+            light.vy * segmentLength +
+            random(-jitterAmount, jitterAmount);
+          if (nextX < 0 || nextX > w || nextY < 0 || nextY > h) {
+            trails.push({
+              path: [...light.path],
+              age: 0,
+              lineWidth: light.lineWidth,
+            });
+            lightning.splice(i, 1);
+            continue;
+          }
+          light.path.push({ x: nextX, y: nextY });
+          if (light.path.length > light.pathLimit) {
+            trails.push({
+              path: [...light.path],
+              age: 0,
+              lineWidth: light.lineWidth,
+            });
+            lightning.splice(i, 1);
+          }
         }
       }
     };
 
-    /**
-     * Renders a single frame of the lightning animation.
-     *
-     * 1. Clears the entire canvas to ensure no color accumulation
-     * 2. Ages existing trails based on deltaTime and removes those that exceed trailDuration
-     * 3. Draws all trails with decreasing opacity based on age
-     * 4. Draws all active lightning bolts at full opacity
-     *
-     * @param deltaTime - The time elapsed since the last frame, in milliseconds.
-     */
     const drawFrame = (deltaTime: number) => {
-      // Clear the entire canvas
       ctx.clearRect(0, 0, w, h);
-
-      // Update trail ages and remove old ones
       for (let i = trails.length - 1; i >= 0; i--) {
-        trails[i].age += deltaTime; // Age is now time-based
+        trails[i].age += deltaTime;
         if (trails[i].age > trailDuration) {
           trails.splice(i, 1);
         }
       }
-
-      // Draw trails with fading opacity
-      ctx.shadowBlur = config.blur;
-      ctx.shadowColor = config.blurColor;
-
+      ctx.shadowBlur = 0;
+      const opacityBuckets = new Map<number, typeof trails>();
       for (const trail of trails) {
-        const opacity = 1 - trail.age / trailDuration; // Opacity based on time
-        const [r, g, b] = [220, 235, 255]; // Extract RGB from strokeColor
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.8})`;
-        ctx.lineWidth = trail.lineWidth * opacity;
-
+        const opacity = 1 - trail.age / trailDuration;
+        const bucketKey = Math.floor(opacity * 10) / 10;
+        if (!opacityBuckets.has(bucketKey)) {
+          opacityBuckets.set(bucketKey, []);
+        }
+        opacityBuckets.get(bucketKey)?.push(trail);
+      }
+      for (const [opacity, trailBatch] of opacityBuckets) {
+        ctx.strokeStyle = `rgba(220, 235, 255, ${opacity * 0.8})`;
         ctx.beginPath();
-        ctx.moveTo(trail.path[0].x, trail.path[0].y);
-        for (const segment of trail.path) {
-          ctx.lineTo(segment.x, segment.y);
+        for (const trail of trailBatch) {
+          ctx.lineWidth = trail.lineWidth * opacity;
+          ctx.moveTo(trail.path[0].x, trail.path[0].y);
+          for (const segment of trail.path) {
+            ctx.lineTo(segment.x, segment.y);
+          }
+          ctx.moveTo(
+            trail.path[trail.path.length - 1].x,
+            trail.path[trail.path.length - 1].y,
+          );
         }
         ctx.lineJoin = "round";
         ctx.stroke();
       }
-
-      // Draw active lightning bolts
+      ctx.shadowBlur = config.blur;
+      ctx.shadowColor = config.blurColor;
+      ctx.strokeStyle = config.strokeColor;
+      ctx.beginPath();
       for (const light of lightning) {
-        ctx.strokeStyle = config.strokeColor;
         ctx.lineWidth = light.lineWidth;
-
-        ctx.beginPath();
         ctx.moveTo(light.path[0].x, light.path[0].y);
         for (const segment of light.path) {
           ctx.lineTo(segment.x, segment.y);
         }
-        ctx.lineJoin = "round";
-        ctx.stroke();
+        ctx.moveTo(
+          light.path[light.path.length - 1].x,
+          light.path[light.path.length - 1].y,
+        );
       }
+      ctx.lineJoin = "round";
+      ctx.stroke();
     };
 
-    /**
-     * Main animation loop function called on each frame.
-     * Implements a fixed-timestep loop to decouple physics from rendering.
-     *
-     * 1. Calculates elapsed time (deltaTime).
-     * 2. Runs physics updates (`updateLightning`) at a fixed rate (60hz).
-     * 3. Renders the latest state (`drawFrame`) on every available frame.
-     * 4. Schedules the next animation frame.
-     *
-     * @param currentTime - The current time from performance.now().
-     */
     const animate = (currentTime: number) => {
       animationFrameId.current = requestAnimationFrame(animate);
-
       let deltaTime = currentTime - lastTime;
       lastTime = currentTime;
-
-      // Prevent spiral of death on tab changes
       if (deltaTime > 250) {
         deltaTime = 250;
       }
-
       accumulator += deltaTime;
-
-      // Fixed-timestep physics updates
       while (accumulator >= timestep) {
         lightTimeCurrent++;
         if (lightTimeCurrent >= lightTimeTotal) {
@@ -416,12 +485,9 @@ export const useLightning = (
           lightTimeCurrent = 0;
           lightTimeTotal = random(config.minDelay, config.maxDelay);
         }
-
         updateLightning();
         accumulator -= timestep;
       }
-
-      // Render as fast as possible
       drawFrame(deltaTime);
     };
 
@@ -430,7 +496,6 @@ export const useLightning = (
       h = canvas.height = canvas.offsetHeight;
       lightning.length = 0;
       trails.length = 0;
-      // Reset time to avoid a large deltaTime jump on resize
       lastTime = performance.now();
     };
 
