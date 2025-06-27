@@ -1,13 +1,25 @@
 // src/features/projects/components/ProjectsSection.tsx
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useLightning } from "../hooks/useLightning";
+import { projectsData } from "../utils/projectsData";
+import { cn } from "@/common/shadcn/lib/utils";
 
 export const ProjectsSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const projects = projectsData();
+  const [projectIndex, setProjectIndex] = useState(0);
+  const perimeterSize = 85;
+
+  const handlePreviousButton = () => {
+    setProjectIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  };
+  const handleNextButton = () => {
+    setProjectIndex((prev) => (prev + 1) % projects.length);
+  };
 
   useLightning(canvasRef, {
     perimeterMode: "rectangle",
-    perimeterSize: 0.85,
+    perimeterSize: perimeterSize / 100,
     perimeterAspectRatio: 16 / 9,
     perimeterBidirectional: true,
 
@@ -40,10 +52,33 @@ export const ProjectsSection: React.FC = () => {
       id="projects"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
     >
-      <canvas
-        ref={canvasRef}
-        className="absolute bottom-32 left-1/2 h-full w-full max-w-[1280px] -translate-x-1/2"
-      />
+      {/* Container for the image and canvas to ensure perfect alignment */}
+      <div className="relative aspect-[16/9] w-full max-w-[1280px]">
+        {/* This container scales the image to fit inside the lightning perimeter */}
+        <div
+          className={cn(
+            "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+            `h-[${perimeterSize}%]`,
+            `w-[${perimeterSize}%]`,
+          )}
+        >
+          <img
+            src={projects[projectIndex].mediaUrl}
+            alt={`${projects[projectIndex].name} thumbnail/video`}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      </div>
+
+      <div className="absolute bottom-96 flex flex-row gap-x-10">
+        <button onClick={handlePreviousButton} className="text-white">
+          Previous
+        </button>
+        <button onClick={handleNextButton} className="text-white">
+          Next
+        </button>
+      </div>
     </section>
   );
 };

@@ -213,3 +213,12 @@ export interface LightningOptions {
   /** Whether bolts can travel in both clockwise and counter-clockwise directions around the perimeter. */
   perimeterBidirectional?: boolean;
 }
+
+export interface PortfolioProject {
+  name: string;
+  mediaUrl: string;
+  projectLink: string;
+  techStack: string[] | null;
+  shortDescription: string | null;
+  description: string | null;
+}
