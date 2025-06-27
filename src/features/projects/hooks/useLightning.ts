@@ -299,6 +299,16 @@ export const useLightning = (
       );
 
       for (let i = 0; i < createCount; i++) {
+        // Resolve path lengths
+        const minPath =
+          typeof config.minPathLength === "function"
+            ? config.minPathLength(w, h)
+            : config.minPathLength;
+        const maxPath =
+          typeof config.maxPathLength === "function"
+            ? config.maxPathLength(w, h)
+            : config.maxPathLength;
+
         if (config.perimeterMode === "rectangle") {
           const { width: rectWidth, height: rectHeight } =
             getRectangleDimensions();
@@ -317,7 +327,7 @@ export const useLightning = (
             vx: 0,
             vy: 0,
             path: [{ x: pos.x, y: pos.y }],
-            pathLimit: random(config.minPathLength, config.maxPathLength),
+            pathLimit: random(minPath, maxPath),
             speed: random(config.minSpeed, config.maxSpeed),
             turniness: 0,
             lineWidth: random(config.minLineWidth, config.maxLineWidth),
@@ -334,7 +344,7 @@ export const useLightning = (
             vx,
             vy,
             path: [{ x, y }],
-            pathLimit: random(config.minPathLength, config.maxPathLength),
+            pathLimit: random(minPath, maxPath),
             speed: random(config.minSpeed, config.maxSpeed),
             turniness: random(config.minTurniness, config.maxTurniness),
             lineWidth: random(config.minLineWidth, config.maxLineWidth),

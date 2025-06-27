@@ -116,11 +116,21 @@ export interface LightningOptions {
 
   // Bolt physics
 
-  /** The minimum number of segments a bolt can have. */
-  minPathLength: number;
+  /**
+   * The minimum number of segments a bolt can have.
+   * Can be a number or a function that returns a number based on canvas dimensions.
+   */
+  minPathLength:
+    | number
+    | ((canvasWidth: number, canvasHeight: number) => number);
 
-  /** The maximum number of segments a bolt can have. */
-  maxPathLength: number;
+  /**
+   * The maximum number of segments a bolt can have.
+   * Can be a number or a function that returns a number based on canvas dimensions.
+   */
+  maxPathLength:
+    | number
+    | ((canvasWidth: number, canvasHeight: number) => number);
 
   /** The minimum base speed/length for each bolt segment per tick. */
   minSpeed: number;

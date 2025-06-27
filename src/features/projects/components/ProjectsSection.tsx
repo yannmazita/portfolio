@@ -1,5 +1,4 @@
 // src/features/projects/components/ProjectsSection.tsx
-
 import { useRef } from "react";
 import { useLightning } from "../hooks/useLightning";
 
@@ -18,8 +17,12 @@ export const ProjectsSection: React.FC = () => {
     minCreateCount: 1,
     maxCreateCount: 1,
 
-    minPathLength: 80,
-    maxPathLength: 120,
+    minPathLength: (canvasWidth) => {
+      return canvasWidth > 1000 ? 80 : 30;
+    },
+    maxPathLength: (canvasWidth) => {
+      return canvasWidth > 1000 ? 120 : 50;
+    },
 
     minSpeed: 15,
     maxSpeed: 25,
