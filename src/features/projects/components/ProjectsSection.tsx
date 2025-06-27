@@ -18,7 +18,7 @@ export const ProjectsSection: React.FC = () => {
     maxCreateCount: 1,
 
     minPathLength: (canvasWidth) => {
-      return canvasWidth > 1000 ? 80 : 30;
+      return canvasWidth > 1000 ? 80 : 40;
     },
     maxPathLength: (canvasWidth) => {
       return canvasWidth > 1000 ? 120 : 50;
@@ -42,7 +42,7 @@ export const ProjectsSection: React.FC = () => {
     >
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 h-full w-full max-w-[1280px]"
+        className="absolute bottom-32 left-1/2 h-full w-full max-w-[1280px] -translate-x-1/2"
       />
     </section>
   );
