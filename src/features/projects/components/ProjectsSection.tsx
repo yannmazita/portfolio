@@ -2,7 +2,6 @@
 import { useRef, useState } from "react";
 import { useLightning } from "../hooks/useLightning";
 import { projectsData } from "../utils/projectsData";
-import { cn } from "@/common/shadcn/lib/utils";
 
 export const ProjectsSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
