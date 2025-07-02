@@ -4,15 +4,11 @@ import { NavigationBar } from "./NavigationBar/NavigationBar";
 import { CookieConsentBanner } from "@/common/components/GDPR/CookieConsentBanner";
 import { Meta } from "../Meta";
 import { StatusBar } from "@/features/status/components/StatusBar";
-import { useScrollSpy } from "@/common/hooks/useScrollSpy";
-import { useMenuStore } from "@/core/stores/useMenuStore";
 import { useAnimationStore } from "@/core/stores/useAnimationStore";
 import { cn } from "@/common/shadcn/lib/utils";
 import { useEffect } from "react";
 
 export const Layout: React.FC = () => {
-  const { setSelectedIndex } = useMenuStore();
-  const { pauseObserver } = useScrollSpy(setSelectedIndex);
   const { topMounted, triggerMountAnimation } = useAnimationStore();
 
   // Trigger the animation sequence once on component mount
@@ -38,7 +34,7 @@ export const Layout: React.FC = () => {
         )}
       >
         <StatusBar />
-        <NavigationBar pauseScrollSpy={pauseObserver} />
+        <NavigationBar />
       </header>
       <main className="flex grow flex-col px-2 pb-2">
         <Outlet />

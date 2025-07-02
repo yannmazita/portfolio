@@ -47,10 +47,7 @@ export const ProjectsSection: React.FC = () => {
   });
 
   return (
-    <section
-      id="projects"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
-    >
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
       {/* Container for the image and canvas to ensure perfect alignment */}
       <div className="relative aspect-[16/9] w-full max-w-[1280px]">
         {/* This container scales the image to fit inside the lightning perimeter */}
