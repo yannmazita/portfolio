@@ -17,10 +17,7 @@ export const HomeSection: React.FC = () => {
   });
 
   return (
-    <section
-      id="home"
-      className="flex min-h-screen flex-col items-center justify-center text-center"
-    >
+    <section className="flex min-h-screen flex-col items-center justify-center text-center">
       <div className="mb-16 flex flex-col items-center justify-center">
         <Terminal lines={displayLines} isComplete={isComplete} />
         {isComplete && (
