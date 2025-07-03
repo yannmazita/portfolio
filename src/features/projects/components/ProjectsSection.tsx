@@ -83,7 +83,7 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Short description */}
-      <div className="flex min-h-20 flex-col justify-center text-center font-mono text-white">
+      <div className="flex min-h-20 flex-col justify-center text-center font-mono text-white md:min-h-fit">
         {projects[projectIndex].shortDescription}
       </div>
 
@@ -91,7 +91,7 @@ export const ProjectsSection: React.FC = () => {
       <div className="min-h-16 font-mono font-bold text-white">
         {projects[projectIndex].techStack &&
           projects[projectIndex].techStack.length > 0 && (
-            <div className="mt-2 flex flex-wrap justify-center gap-2 py-1">
+            <div className="mt-4 flex flex-wrap justify-center gap-2 py-1">
               {projects[projectIndex].techStack.map((stack, index) => (
                 <span
                   key={index}
@@ -105,7 +105,7 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Longer Description */}
-      <div className="flex min-h-24 flex-col justify-center text-center font-mono text-sm text-white md:text-lg">
+      <div className="flex min-h-24 flex-col justify-center text-center font-mono text-sm text-white md:min-h-fit md:text-lg">
         {projects[projectIndex].description}
       </div>
 
