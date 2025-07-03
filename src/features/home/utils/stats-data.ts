@@ -23,11 +23,11 @@ export const PROCESS_LIST: Process[] = [
     command: "/sbin/init",
   },
   {
-    pid: 101,
+    pid: 1231452,
     user: "mazita",
-    cpu: 25.5,
-    mem: 8.2,
-    command: "/bin/react-mastery --v=19",
+    cpu: 0.0,
+    mem: 0.0,
+    command: "npm create vite@latest",
   },
   /*
   {
@@ -39,27 +39,21 @@ export const PROCESS_LIST: Process[] = [
   },
   */
   {
-    pid: 303,
+    pid: 1232848,
     user: "mazita",
-    cpu: 1.2,
-    mem: 5.5,
-    command: "/usr/sbin/nginx -g 'daemon off;'",
+    cpu: 1.1,
+    mem: 0.0,
+    command: "docker compose up --d postgres-dev",
   },
   {
-    pid: 404,
+    pid: 1233552,
     user: "mazita",
-    cpu: 9.8,
-    mem: 3.1,
-    command: "docker-compose up -d",
-  },
-  {
-    pid: 505,
-    user: "mazita",
-    cpu: 20.3,
+    cpu: 10.3,
     mem: 15.9,
-    command: "/usr/games/tekken --mode=arcade",
+    command: "python -m src.main",
   },
-  { pid: 606, user: "mazita", cpu: 1.0, mem: 1.2, command: "zsh" },
+  { pid: 3542, user: "mazita", cpu: 0.0, mem: 0.0, command: "/usr/bin/zsh" },
+  { pid: 383413, user: "mazita", cpu: 0.0, mem: 1.2, command: "nvim" },
 ];
 
 export const MEMORY_TOTAL_MB = 32768;
