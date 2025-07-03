@@ -4,8 +4,6 @@ import { CpuStats } from "./CpuStats";
 import { MemoryStats } from "./MemoryStats";
 import { ProcessList } from "./ProcessList";
 import { SystemStatsHeader } from "./SystemStatsHeader";
-import { useLightning } from "@/features/projects/hooks/useLightning";
-import { useRef } from "react";
 
 interface SystemStatsProps {
   className?: string;
@@ -17,6 +15,8 @@ export const SystemStats: React.FC<SystemStatsProps> = ({
   startAnimations,
 }) => {
   const { cpuUsages, memoryUsage, swapUsage } = useLiveStats();
+  {
+    /*
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useLightning(canvasRef, {
@@ -49,6 +49,8 @@ export const SystemStats: React.FC<SystemStatsProps> = ({
     blurColor: "rgba(120, 180, 255, 0.8)",
     strokeColor: "rgba(220, 235, 255, 1)",
   });
+  */
+  }
 
   return (
     <div
@@ -64,7 +66,7 @@ export const SystemStats: React.FC<SystemStatsProps> = ({
       <MemoryStats memory={memoryUsage} swap={swapUsage} />
       <div className="my-4 h-px bg-white/10"></div>
       <ProcessList startTyping={startAnimations} />
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      {/*<canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />*/}
     </div>
   );
 };
