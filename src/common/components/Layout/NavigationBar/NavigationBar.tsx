@@ -32,7 +32,7 @@ export const NavigationBar: React.FC = () => {
           rel="noopener noreferrer"
           className={cn(
             "clip-bl bg-portfolio-primary flex h-8 w-18 items-center justify-end pr-1 text-xs font-bold text-white md:h-11 md:w-24 md:text-sm",
-            "animate-in fade-in transition-all duration-300",
+            "animate-in fade-in font-mono transition-all duration-300",
             sidesMounted ? "opacity-100" : "opacity-0",
           )}
           style={{

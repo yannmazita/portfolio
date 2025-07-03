@@ -21,7 +21,7 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
       to={to}
       className={({ isActive }) =>
         cn(
-          "clip-bl flex h-8 w-18 items-center justify-end pr-1 text-xs font-bold text-white md:h-11 md:w-24 md:text-sm",
+          "clip-bl flex h-8 w-18 items-center justify-end pr-1 font-mono text-xs font-bold text-white md:h-11 md:w-24 md:text-sm",
           isActive ? "bg-portfolio-secondary" : "bg-portfolio-primary",
           className,
         )

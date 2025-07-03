@@ -58,13 +58,13 @@ export const ProjectsSection: React.FC = () => {
         href={projects[projectIndex].projectLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-portfolio-primary flex justify-center font-mono text-xl font-light"
+        className="text-portfolio-primary flex justify-center font-mono text-xs font-light md:text-xl"
       >
         {projects[projectIndex].projectLink}
       </a>
 
       {/* Container for the image and canvas to ensure perfect alignment */}
-      <div className="relative aspect-[16/9] w-full max-w-[1024px]">
+      <div className="relative my-14 aspect-[16/9] w-full max-w-[1024px] md:my-0">
         {/* This container scales the image to fit inside the lightning perimeter */}
         <div
           className="absolute top-1/2 left-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2"
