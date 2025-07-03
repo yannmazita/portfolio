@@ -58,13 +58,13 @@ export const ProjectsSection: React.FC = () => {
         href={projects[projectIndex].projectLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-portfolio-primary flex justify-center font-mono text-xs font-light md:text-xl"
+        className="text-portfolio-primary mt-2 flex justify-center font-mono text-xs font-light hover:underline md:text-xl"
       >
         {projects[projectIndex].projectLink}
       </a>
 
       {/* Container for the image and canvas to ensure perfect alignment */}
-      <div className="relative my-14 aspect-[16/9] w-full max-w-[1024px] md:my-0">
+      <div className="relative mt-8 aspect-[16/9] w-full max-w-[1024px] md:mt-0">
         {/* This container scales the image to fit inside the lightning perimeter */}
         <div
           className="absolute top-1/2 left-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2"
@@ -83,11 +83,12 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Short description */}
-      <div className="font-mono font-bold text-white">
+      <div className="flex min-h-20 flex-col justify-center text-center font-mono text-white">
         {projects[projectIndex].shortDescription}
       </div>
+
       {/* Tech stack */}
-      <div className="font-mono font-bold text-white">
+      <div className="min-h-16 font-mono font-bold text-white">
         {projects[projectIndex].techStack &&
           projects[projectIndex].techStack.length > 0 && (
             <div className="mt-2 flex flex-wrap justify-center gap-2 py-1">
@@ -103,17 +104,22 @@ export const ProjectsSection: React.FC = () => {
           )}
       </div>
 
+      {/* Longer Description */}
+      <div className="flex min-h-24 flex-col justify-center text-center text-white">
+        {projects[projectIndex].description}
+      </div>
+
       {/* Project navigation */}
-      <div className="mt-8 flex flex-row gap-x-10 lg:mt-2">
+      <div className="mt-2 flex flex-row gap-x-10">
         <button
           onClick={handlePreviousButton}
-          className="px-4 py-2 font-mono text-white"
+          className="active:text-portfolio-primary hover:text-portfolio-primary px-4 py-2 font-mono font-bold text-white hover:underline active:underline"
         >
           Previous
         </button>
         <button
           onClick={handleNextButton}
-          className="px-4 py-2 font-mono text-white"
+          className="active:text-portfolio-primary hover:text-portfolio-primary px-4 py-2 font-mono font-bold text-white active:underline"
         >
           Next
         </button>

@@ -16,6 +16,7 @@ export function projectsData(): PortfolioProject[] {
         "FastAPI",
         "Postgres",
         "Docker",
+        "Terraform",
         "GCP",
       ],
       shortDescription: "Geoguessr-inspired, circuit-guessing web game",
@@ -27,9 +28,9 @@ export function projectsData(): PortfolioProject[] {
       mediaUrl: XPSheep,
       projectLink: "https://www.github.com/yannmazita/playlistworks",
       techStack: ["Python", "QT/QML", "SQLite", "GStreamer", "Mutagen"],
-      shortDescription: "Playslist-driven music player",
+      shortDescription: "Playlist-driven music player",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi.",
+        "Play your music through easy-to-create dynamic playlists. Any combination of metadata tag can be used to create your playlists.",
     },
     {
       name: "winvue",
@@ -38,7 +39,7 @@ export function projectsData(): PortfolioProject[] {
       techStack: ["Vue3", "Typescript"],
       shortDescription: "Window manager for Vue",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi.",
+        "Display components in movable and resizable 'windows'. You can also minimize and maximze them.",
     },
     {
       name: "step.ts",
@@ -47,7 +48,7 @@ export function projectsData(): PortfolioProject[] {
       techStack: ["React", "Typescript", "Tone.JS"],
       shortDescription: "Web-based step sequencer",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi.",
+        "Virtual step sequencer allowing to create music on the web.",
     },
   ];
 }
