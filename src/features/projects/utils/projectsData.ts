@@ -1,13 +1,13 @@
 // src/features/projects/utils/projectsData.ts
 import { PortfolioProject } from "../types";
-import DeleteGif from "@/assets/delete_system_32.gif";
-import XPSheep from "@/assets/windows_xp_sheep.gif";
+import ApexTimelapse from "@/assets/apexguessr.webm";
+import WinvueTimelapse from "@/assets/winvue.webm";
 
 export function projectsData(): PortfolioProject[] {
   return [
     {
       name: "apexguessr",
-      mediaUrl: DeleteGif,
+      mediaUrl: ApexTimelapse,
       projectLink: "https://apexguessr.com",
       techStack: [
         "React",
@@ -25,7 +25,7 @@ export function projectsData(): PortfolioProject[] {
     },
     {
       name: "playlistworks",
-      mediaUrl: XPSheep,
+      mediaUrl: "some/link",
       projectLink: "https://www.github.com/yannmazita/playlistworks",
       techStack: ["Python", "QT/QML", "SQLite", "GStreamer", "Mutagen"],
       shortDescription: "Playlist-driven music player",
@@ -34,7 +34,7 @@ export function projectsData(): PortfolioProject[] {
     },
     {
       name: "winvue",
-      mediaUrl: "some/link",
+      mediaUrl: WinvueTimelapse,
       projectLink: "https://www.github.com/yannmazita/winvue",
       techStack: ["Vue3", "Typescript"],
       shortDescription: "Window manager for Vue",

@@ -73,11 +73,18 @@ export const ProjectsSection: React.FC = () => {
             height: `${perimeterSize}%`,
           }}
         >
-          <img
-            src={projects[projectIndex].mediaUrl}
-            alt={`${projects[projectIndex].name} timelapse`}
+          <video
+            key={projectIndex}
+            autoPlay
+            loop
+            muted
+            playsInline
             className="h-full w-full object-cover text-white"
-          />
+            aria-label={`${projects[projectIndex].name} timelapse`}
+          >
+            <source src={projects[projectIndex].mediaUrl} type="video/mp4" />
+            {`${projects[projectIndex].name} timelapse video not supported.`}
+          </video>
         </div>
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       </div>
