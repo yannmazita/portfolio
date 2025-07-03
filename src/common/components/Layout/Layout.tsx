@@ -36,7 +36,7 @@ export const Layout: React.FC = () => {
         <StatusBar />
         <NavigationBar />
       </header>
-      <main className="flex grow flex-col px-2 pb-2">
+      <main className="flex grow flex-col justify-center px-2 pb-2">
         <Outlet />
       </main>
       {/*<Footer />*/}
