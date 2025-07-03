@@ -39,7 +39,7 @@ export function projectsData(): PortfolioProject[] {
       techStack: ["Vue3", "Typescript"],
       shortDescription: "Window manager for Vue",
       description:
-        "Display components in movable and resizable 'windows'. You can also minimize and maximze them.",
+        "Display components in movable and resizable 'windows'. You can also minimize and maximize them.",
     },
     {
       name: "step.ts",
