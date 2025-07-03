@@ -30,7 +30,7 @@ export function projectsData(): PortfolioProject[] {
       techStack: ["Python", "QT/QML", "SQLite", "GStreamer", "Mutagen"],
       shortDescription: "Playlist-driven music player",
       description:
-        "Play your music through easy-to-create dynamic playlists. Any combination of metadata tag can be used to create your playlists.",
+        "Play music. Create instant dynamic playlists. Any combination of metadata tag can be used to create your playlists with the query language.",
     },
     {
       name: "winvue",

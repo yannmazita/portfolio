@@ -105,7 +105,7 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Longer Description */}
-      <div className="flex min-h-24 flex-col justify-center text-center text-white">
+      <div className="flex min-h-24 flex-col justify-center text-center font-mono text-sm text-white md:text-lg">
         {projects[projectIndex].description}
       </div>
 
