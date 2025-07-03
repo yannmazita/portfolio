@@ -24,7 +24,7 @@ const formatBytes = (megabytes: number) => {
 };
 
 const MemoryStatRow: React.FC<MemoryStatRowProps> = ({ label, stat }) => (
-  <div className="flex items-center gap-2 px-4 text-sm">
+  <div className="flex min-h-10 items-center gap-2 px-4 text-sm">
     <span className="w-12 shrink-0 text-left text-white/70">{label}</span>
     <div className="flex-1">
       <ProgressBar value={stat.percent} />

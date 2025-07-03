@@ -1,57 +1,45 @@
 // src/features/home/hooks/useLiveStats.ts
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { CPU_CORES, MEMORY_TOTAL_MB, SWAP_TOTAL_MB } from "../utils/stats-data";
-
-// Helper to generate a random number in a range
-const random = (min: number, max: number) => Math.random() * (max - min) + min;
-
-const initialCpuUsages = CPU_CORES.map(() => random(20, 60));
-const initialMemoryUsage = random(4000, 8000);
-const initialSwapUsage = random(1000, 2000);
+import { random, jitter } from "@/common/utils/math";
 
 /**
  * Simulates live system statistics.
  * @returns An object with live CPU, memory, and swap usage values.
  */
 export const useLiveStats = () => {
-  const [cpuUsages, setCpuUsages] = useState<number[]>(initialCpuUsages);
-  const [memoryUsage, setMemoryUsage] = useState<number>(initialMemoryUsage);
-  const [swapUsage, setSwapUsage] = useState<number>(initialSwapUsage);
-
-  const requestRef = useRef<number>(0);
-  const lastUpdateTimeRef = useRef<number>(0);
-
-  // Store targets and current values for smooth animation
-  const cpuTargetsRef = useRef<number[]>(initialCpuUsages);
-  const memTargetRef = useRef<number>(initialMemoryUsage);
-  const swapTargetRef = useRef<number>(initialSwapUsage);
-
-  const animate = (time: number) => {
-    // Update targets every 2 seconds
-    if (time - lastUpdateTimeRef.current > 2000) {
-      lastUpdateTimeRef.current = time;
-      cpuTargetsRef.current = CPU_CORES.map(() => random(20, 85));
-      memTargetRef.current = random(4000, 12000);
-      swapTargetRef.current = random(1000, 4000);
-    }
-
-    // Interpolate current values towards targets for smooth transition
-    setCpuUsages((prev) =>
-      prev.map((usage, i) => usage + (cpuTargetsRef.current[i] - usage) * 0.05),
-    );
-    setMemoryUsage((prev) => prev + (memTargetRef.current - prev) * 0.05);
-    setSwapUsage((prev) => prev + (swapTargetRef.current - prev) * 0.05);
-
-    requestRef.current = requestAnimationFrame(animate);
-  };
+  const [cpuUsages, setCpuUsages] = useState<number[]>(
+    CPU_CORES.map(() => random(5, 30)),
+  );
+  const [memoryUsage, setMemoryUsage] = useState<number>(
+    random(MEMORY_TOTAL_MB * 0.4, MEMORY_TOTAL_MB * 0.65),
+  );
+  const [swapUsage, setSwapUsage] = useState<number>(
+    random(0, SWAP_TOTAL_MB * 0.05),
+  );
 
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
-      }
+    const updateStats = () => {
+      setCpuUsages((prev) => prev.map(() => random(5, 50)));
+
+      setMemoryUsage((prev) =>
+        jitter(
+          prev,
+          MEMORY_TOTAL_MB * 0.3,
+          MEMORY_TOTAL_MB * 0.75,
+          MEMORY_TOTAL_MB * 0.02,
+        ),
+      );
+
+      setSwapUsage((prev) =>
+        jitter(prev, 0, SWAP_TOTAL_MB * 0.1, SWAP_TOTAL_MB * 0.01),
+      );
     };
+
+    // Update stats every 2.5 to 4.5 seconds for variability
+    const interval = setInterval(updateStats, random(2500, 4500));
+
+    return () => clearInterval(interval);
   }, []);
 
   return {
