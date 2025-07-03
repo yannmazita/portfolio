@@ -8,8 +8,16 @@ export function projectsData(): PortfolioProject[] {
     {
       name: "apexguessr",
       mediaUrl: DeleteGif,
-      projectLink: "apexguessr.com",
-      techStack: ["React", "TypeScript", "OpenLayers", "Python", "FastAPI"],
+      projectLink: "https://apexguessr.com",
+      techStack: [
+        "React",
+        "TypeScript",
+        "Python",
+        "FastAPI",
+        "Postgres",
+        "Docker",
+        "GCP",
+      ],
       shortDescription: "Geoguessr-inspired, circuit-guessing web game",
       description:
         "Test your knowledge of motorsport circuits from around the world. Identify the track and pinpoint its location on the map.",
@@ -18,7 +26,7 @@ export function projectsData(): PortfolioProject[] {
       name: "playlistworks",
       mediaUrl: XPSheep,
       projectLink: "https://www.github.com/yannmazita/playlistworks",
-      techStack: ["Python", "QT/QML", "SQLite"],
+      techStack: ["Python", "QT/QML", "SQLite", "GStreamer", "Mutagen"],
       shortDescription: "Playslist-driven music player",
       description:
         "Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi.",

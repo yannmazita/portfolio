@@ -53,6 +53,16 @@ export const ProjectsSection: React.FC = () => {
         {projects[projectIndex].name}
       </h1>
 
+      {/* Project link */}
+      <a
+        href={projects[projectIndex].projectLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-portfolio-primary flex justify-center font-mono text-xl font-light"
+      >
+        {projects[projectIndex].projectLink}
+      </a>
+
       {/* Container for the image and canvas to ensure perfect alignment */}
       <div className="relative aspect-[16/9] w-full max-w-[1024px]">
         {/* This container scales the image to fit inside the lightning perimeter */}
