@@ -58,7 +58,7 @@ interface TrailSegment {
  * @param options - Optional object to override the default lightning effect parameters. See `LightningOptions` for all available properties.
  */
 export const useLightning = (
-  canvasRef: RefObject<HTMLCanvasElement>,
+  canvasRef: RefObject<HTMLCanvasElement | null>,
   options: Partial<LightningOptions> = {},
 ) => {
   const animationFrameId = useRef<number | null>(null);
