@@ -2,7 +2,7 @@
 import { writeFileSync } from "fs";
 import { SitemapStream, streamToPromise } from "sitemap";
 
-const PROD_DOMAIN = "https://apexguessr.com";
+const PROD_DOMAIN = "https://mazita.com";
 // public-facing, indexable routes.
 const publicRoutes: string[] = ["/"];
 
@@ -33,4 +33,4 @@ async function generateSitemap() {
   }
 }
 
-generateSitemap();
+await generateSitemap();
