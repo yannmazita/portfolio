@@ -48,8 +48,13 @@ export const ProjectsSection: React.FC = () => {
 
   return (
     <section className="relative flex flex-col items-center justify-center overflow-hidden">
+      {/* Project name */}
+      <h1 className="flex justify-center font-mono text-xl font-bold text-white">
+        {projects[projectIndex].name}
+      </h1>
+
       {/* Container for the image and canvas to ensure perfect alignment */}
-      <div className="relative aspect-[16/9] w-full max-w-[1280px]">
+      <div className="relative aspect-[16/9] w-full max-w-[1024px]">
         {/* This container scales the image to fit inside the lightning perimeter */}
         <div
           className="absolute top-1/2 left-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2"
@@ -67,11 +72,39 @@ export const ProjectsSection: React.FC = () => {
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       </div>
 
-      <div className="mt-8 flex flex-row gap-x-10">
-        <button onClick={handlePreviousButton} className="px-4 py-2 text-white">
+      {/* Short description */}
+      <div className="font-mono font-bold text-white">
+        {projects[projectIndex].shortDescription}
+      </div>
+      {/* Tech stack */}
+      <div className="font-mono font-bold text-white">
+        {projects[projectIndex].techStack &&
+          projects[projectIndex].techStack.length > 0 && (
+            <div className="mt-2 flex flex-wrap justify-center gap-2 py-1">
+              {projects[projectIndex].techStack.map((stack, index) => (
+                <span
+                  key={index}
+                  className="bg-cyan-800/50 px-2 py-0.5 text-xs text-cyan-200"
+                >
+                  {stack}
+                </span>
+              ))}
+            </div>
+          )}
+      </div>
+
+      {/* Project navigation */}
+      <div className="mt-8 flex flex-row gap-x-10 lg:mt-2">
+        <button
+          onClick={handlePreviousButton}
+          className="px-4 py-2 font-mono text-white"
+        >
           Previous
         </button>
-        <button onClick={handleNextButton} className="px-4 py-2 text-white">
+        <button
+          onClick={handleNextButton}
+          className="px-4 py-2 font-mono text-white"
+        >
           Next
         </button>
       </div>
