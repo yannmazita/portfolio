@@ -95,7 +95,7 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Tech stack */}
-      <div className="min-h-16 font-mono font-bold text-white">
+      <div className="min-h-20 font-mono font-bold text-white">
         {projects[projectIndex].techStack &&
           projects[projectIndex].techStack.length > 0 && (
             <div className="mt-4 flex flex-wrap justify-center gap-2 py-1">
