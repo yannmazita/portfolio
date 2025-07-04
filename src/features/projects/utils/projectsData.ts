@@ -1,7 +1,7 @@
 // src/features/projects/utils/projectsData.ts
 import { PortfolioProject } from "../types";
-import ApexTimelapse from "@/assets/apexguessr.webm";
-import WinvueTimelapse from "@/assets/winvue.webm";
+import ApexTimelapse from "@/assets/apexguessr.mp4";
+import WinvueTimelapse from "@/assets/winvue.mp4";
 
 export function projectsData(): PortfolioProject[] {
   return [
