@@ -28,10 +28,17 @@ export function projectsData(): PortfolioProject[] {
       name: "playlistworks",
       mediaUrl: PlaylistworksTimelapse,
       projectLink: "https://www.github.com/yannmazita/playlistworks",
-      techStack: ["Python", "QT/QML", "SQLite", "GStreamer", "Mutagen"],
+      techStack: [
+        "Python",
+        "QT/QML",
+        "SQLite",
+        "No-SQL",
+        "GStreamer",
+        "Mutagen",
+      ],
       shortDescription: "Playlist-driven music player",
       description:
-        "Play music. Create instant dynamic playlists. Any combination of metadata tag can be used to create your playlists with the query language.",
+        "Play music. Create instant dynamic playlists. Any combination of tag can be used with the query language, thanks to No-SQL JSON in SQLite.",
     },
     {
       name: "winvue",
