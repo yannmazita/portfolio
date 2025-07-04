@@ -2,6 +2,7 @@
 import { PortfolioProject } from "../types";
 import ApexTimelapse from "@/assets/apexguessr.mp4";
 import WinvueTimelapse from "@/assets/winvue.mp4";
+import PlaylistworksTimelapse from "@/assets/playlistworks.mp4";
 
 export function projectsData(): PortfolioProject[] {
   return [
@@ -21,11 +22,11 @@ export function projectsData(): PortfolioProject[] {
       ],
       shortDescription: "Geoguessr-inspired, circuit-guessing web game",
       description:
-        "Test your knowledge of motorsport circuits from around the world. Identify the track and pinpoint its location on the map.",
+        "Test your knowledge of motorsport circuits from around the world. Deployed on GCP using Terraform and a fully automated CI/CD (Github Actions) pipeline.",
     },
     {
       name: "playlistworks",
-      mediaUrl: "some/link",
+      mediaUrl: PlaylistworksTimelapse,
       projectLink: "https://www.github.com/yannmazita/playlistworks",
       techStack: ["Python", "QT/QML", "SQLite", "GStreamer", "Mutagen"],
       shortDescription: "Playlist-driven music player",
