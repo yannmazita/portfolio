@@ -2,7 +2,7 @@
 import { Fragment } from "react";
 
 const SCROLLING_MESSAGES: React.ReactNode[] = [
-  "LATEST PROJECT : APEXGUESSER",
+  "LATEST PROJECT : APEXGUESSR",
   "Wanna test your racing track knowledge?",
   <span>
     Check out{" "}
