@@ -3,11 +3,11 @@ import { scan } from "react-scan";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import "./index.css";
 import { routes } from "./core/routes";
 
-const router = createBrowserRouter(routes);
+const router = createHashRouter(routes);
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Failed to find the root element");
