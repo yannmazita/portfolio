@@ -45,20 +45,6 @@ export const ResumeEntryCard: React.FC<ResumeEntryCardProps> = ({
           </li>
         ))}
       </ul>
-
-      {/* Technologies */}
-      {entry.technologies && entry.technologies.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {entry.technologies.map((tech, index) => (
-            <span
-              key={index}
-              className="bg-cyan-800/50 px-2 py-0.5 text-xs text-cyan-200"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
