@@ -6,6 +6,7 @@ import { cn } from "@/common/shadcn/lib/utils";
 import { educationData } from "../utils/educationData";
 import { EducationCard } from "./EducationCard";
 import { getAssetUrl } from "@/common/utils/assets";
+import { Meta } from "@/common/components/Meta";
 
 export const ResumeSection: React.FC = () => {
   const textMounted = useAnimationStore((state) => state.textMounted);
