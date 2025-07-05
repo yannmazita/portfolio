@@ -2,7 +2,7 @@
 import { writeFileSync } from "fs";
 import { SitemapStream, streamToPromise } from "sitemap";
 
-const PROD_DOMAIN = "https://mazita.com";
+const PROD_DOMAIN = "https://mazita.dev";
 // public-facing, indexable routes.
 const publicRoutes: string[] = ["/"];
 

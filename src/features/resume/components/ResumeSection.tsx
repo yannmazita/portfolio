@@ -5,8 +5,7 @@ import { resumeData } from "../utils/resumeData";
 import { cn } from "@/common/shadcn/lib/utils";
 import { educationData } from "../utils/educationData";
 import { EducationCard } from "./EducationCard";
-
-const RESUME_PDF_PATH = "/CV_Yann_Mazita.pdf";
+import { getAssetUrl } from "@/common/utils/assets";
 
 export const ResumeSection: React.FC = () => {
   const textMounted = useAnimationStore((state) => state.textMounted);
@@ -35,7 +34,7 @@ export const ResumeSection: React.FC = () => {
           Service Record
         </h2>
         <a
-          href={RESUME_PDF_PATH}
+          href={getAssetUrl("/resume/cv_yann_mazita.pdf")}
           target="_blank"
           rel="noopener noreferrer"
           className={cn(

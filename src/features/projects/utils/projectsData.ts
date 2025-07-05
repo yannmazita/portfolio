@@ -1,14 +1,13 @@
 // src/features/projects/utils/projectsData.ts
 import { PortfolioProject } from "../types";
-import ApexTimelapse from "@/assets/apexguessr.mp4";
-import WinvueTimelapse from "@/assets/winvue.mp4";
-import PlaylistworksTimelapse from "@/assets/playlistworks.mp4";
+import { getAssetUrl } from "@/common/utils/assets";
 
 export function projectsData(): PortfolioProject[] {
   return [
     {
       name: "apexguessr",
-      mediaUrl: ApexTimelapse,
+      mediaUrl: getAssetUrl("videos/apexguessr.mp4"),
+      //thumbnailUrl: getAssetUrl("thumbnails/apexguessr.jpg"),
       projectLink: "https://apexguessr.com",
       techStack: [
         "React",
@@ -26,7 +25,8 @@ export function projectsData(): PortfolioProject[] {
     },
     {
       name: "playlistworks",
-      mediaUrl: PlaylistworksTimelapse,
+      mediaUrl: getAssetUrl("videos/playlistworks.mp4"),
+      //thumbnailUrl: getAssetUrl("thumbnails/playlistworks.jpg"),
       projectLink: "https://www.github.com/yannmazita/playlistworks",
       techStack: [
         "Python",
@@ -42,7 +42,8 @@ export function projectsData(): PortfolioProject[] {
     },
     {
       name: "winvue",
-      mediaUrl: WinvueTimelapse,
+      mediaUrl: getAssetUrl("videos/winvue.mp4"),
+      //thumbnailUrl: getAssetUrl("thumbnails/winvue.jpg"),
       projectLink: "https://www.github.com/yannmazita/winvue",
       techStack: ["Vue3", "Typescript"],
       shortDescription: "Window manager for Vue",
@@ -52,7 +53,7 @@ export function projectsData(): PortfolioProject[] {
     {
       name: "This website :)",
       mediaUrl: "some/link",
-      projectLink: "mazita.com",
+      projectLink: "mazita.dev",
       techStack: ["React", "Typescript", "CSS", "TailwindCSS", "React-Router"],
       shortDescription: "You're currently browsing it.",
       description:
