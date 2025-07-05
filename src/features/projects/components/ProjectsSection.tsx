@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { useLightning } from "../hooks/useLightning";
 import { projectsData } from "../utils/projectsData";
+import { Meta } from "@/common/components/Meta";
 
 export const ProjectsSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -48,6 +49,11 @@ export const ProjectsSection: React.FC = () => {
 
   return (
     <section className="relative flex flex-col items-center justify-center overflow-hidden">
+      <Meta
+        title="Projects"
+        description="Discover different projects I have built."
+      />
+
       {/* Project name */}
       <h1 className="flex justify-center font-mono text-xl font-bold text-white">
         {projects[projectIndex].name}

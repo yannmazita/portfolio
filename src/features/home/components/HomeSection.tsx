@@ -2,6 +2,7 @@
 import { useTypewriter } from "../hooks/useTypewriter";
 import { Terminal } from "./Terminal";
 import { SystemStats } from "./SystemStats";
+import { Meta } from "@/common/components/Meta";
 
 const TYPING_SEQUENCE: string[] = [
   "Connecting to console...",
@@ -18,6 +19,8 @@ export const HomeSection: React.FC = () => {
 
   return (
     <section className="flex flex-col items-center justify-center text-center">
+      <Meta title="Home" description="Yann Mazita's portfolio website." />
+
       <div className="mb-16 flex flex-col items-center justify-center">
         <Terminal lines={displayLines} isComplete={isComplete} />
         {isComplete && (

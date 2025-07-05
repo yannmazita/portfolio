@@ -21,6 +21,11 @@ export const ResumeSection: React.FC = () => {
 
   return (
     <section className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center p-4">
+      <Meta
+        title="Resume"
+        description="Checkout my resume featuring my work experence and education."
+      />
+
       {/* Experience Section */}
       <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
         <h2

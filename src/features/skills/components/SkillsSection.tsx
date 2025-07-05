@@ -3,6 +3,7 @@ import { useAnimationStore } from "@/core/stores/useAnimationStore";
 import { skillsData } from "../utils/skillsData";
 import { SkillCard } from "./SkillCard";
 import { cn } from "@/common/shadcn/lib/utils";
+import { Meta } from "@/common/components/Meta";
 
 export const SkillsSection: React.FC = () => {
   const textMounted = useAnimationStore((state) => state.textMounted);
@@ -10,6 +11,7 @@ export const SkillsSection: React.FC = () => {
 
   return (
     <section className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center p-4">
+      <Meta title="Skills" description="A snippet of my technical skills." />
       <h1
         className={cn(
           "font-mono text-2xl font-bold tracking-widest text-white uppercase md:text-3xl",
