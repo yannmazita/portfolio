@@ -53,7 +53,7 @@ export function projectsData(): PortfolioProject[] {
     {
       name: "This website :)",
       mediaUrl: "some/link",
-      projectLink: "mazita.com",
+      projectLink: "mazita.dev",
       techStack: ["React", "Typescript", "CSS", "TailwindCSS", "React-Router"],
       shortDescription: "You're currently browsing it.",
       description:
