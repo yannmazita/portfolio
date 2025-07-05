@@ -23,13 +23,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // GitHub Pages workaround for non-root page refresh
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
-        "404": resolve(__dirname, "index.html"),
-      },
-    },
-  },
 });
