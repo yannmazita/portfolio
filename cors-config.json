@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://yannmazita.github.io", "mazita.com"],
+    "method": ["GET"],
+    "responseHeader": ["Content-Type", "Content-Length"],
+    "maxAgeSeconds": 3600
+  }
+]

@@ -81,6 +81,7 @@ export const ProjectsSection: React.FC = () => {
             playsInline
             className="h-full w-full object-cover text-white"
             aria-label={`${projects[projectIndex].name} timelapse`}
+            poster={projects[projectIndex].thumbnailUrl}
           >
             <source src={projects[projectIndex].mediaUrl} type="video/mp4" />
             {`${projects[projectIndex].name} timelapse video not supported.`}

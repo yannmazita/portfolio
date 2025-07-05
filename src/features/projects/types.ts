@@ -217,6 +217,7 @@ export interface LightningOptions {
 export interface PortfolioProject {
   name: string;
   mediaUrl: string;
+  thumbnailUrl?: string;
   projectLink: string;
   techStack: string[] | null;
   shortDescription: string | null;
