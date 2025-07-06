@@ -2,7 +2,6 @@
 import { Outlet } from "react-router-dom";
 import { NavigationBar } from "./NavigationBar/NavigationBar";
 import { CookieConsentBanner } from "@/common/components/GDPR/CookieConsentBanner";
-import { Meta } from "../Meta";
 import { StatusBar } from "@/features/status/components/StatusBar";
 import { useAnimationStore } from "@/core/stores/useAnimationStore";
 import { cn } from "@/common/shadcn/lib/utils";
@@ -25,7 +24,6 @@ export const Layout: React.FC = () => {
         "bg-[size:100%_4px]",
       )}
     >
-      <Meta />
       <header
         className={cn(
           "sticky top-0 z-50",
