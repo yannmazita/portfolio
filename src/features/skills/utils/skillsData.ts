@@ -15,6 +15,7 @@ export function skillsData(): SkillCategory[] {
         "SQL (Postgres)",
         "Java",
         "Bash",
+        "QML",
       ],
     },
     {
@@ -37,6 +38,7 @@ export function skillsData(): SkillCategory[] {
         "Pinia",
         "asyncio",
         "SQLAlchemy",
+        "QT (PySide6)",
       ],
     },
     {
