@@ -20,7 +20,7 @@ export function educationData(): EducationEntry[] {
     {
       id: "edu-1",
       institution: "Université Paris 1 Panthéon-Sorbonne",
-      degree: "Licence 3 Mathématiques et Informatique Appliquée",
+      degree: "Licence 3 Mathématiques et Informatique Appliquées",
       period: "Sep. 2017 -- Sep. 2020",
       location: "Paris",
     },
