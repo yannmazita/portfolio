@@ -127,13 +127,13 @@ export const ProjectsSection: React.FC = () => {
       <div className="mt-2 flex flex-row gap-x-10">
         <button
           onClick={handlePreviousButton}
-          className="active:text-portfolio-primary hover:text-portfolio-secondary px-4 py-2 font-mono font-bold text-white hover:underline active:underline"
+          className="hover:text-portfolio-secondary text-portfolio-primary px-4 py-2 font-mono font-bold hover:underline active:underline"
         >
           Previous
         </button>
         <button
           onClick={handleNextButton}
-          className="active:text-portfolio-primary hover:text-portfolio-secondary px-4 py-2 font-mono font-bold text-white hover:underline active:underline"
+          className="hover:text-portfolio-secondary text-portfolio-primary px-4 py-2 font-mono font-bold hover:underline active:underline"
         >
           Next
         </button>
