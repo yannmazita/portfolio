@@ -5,7 +5,7 @@ interface MetaProps {
   noIndex?: boolean;
 }
 
-const APP_NAME = "portfolio";
+const APP_NAME = "Yann Mazita's portfolio";
 const DEFAULT_DESCRIPTION = "Yann Mazita's portfolio";
 
 export const Meta: React.FC<MetaProps> = ({
