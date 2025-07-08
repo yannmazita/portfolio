@@ -8,6 +8,8 @@ export interface TypewriterOptions {
   lineDelay?: number;
   /** Callback fired when all lines are typed. */
   onComplete?: () => void;
+  /** When true, the typing animation will begin. Defaults to true. */
+  start?: boolean;
 }
 
 const DEFAULT_SPEED = 60;
@@ -16,7 +18,7 @@ const DEFAULT_LINE_DELAY = 300;
 /**
  * Creates a typewriter effect with multiple persistent lines.
  * @param lines - An array of strings to be typed out.
- * @param options - Configuration for speed, delay, and completion.
+ * @param options - Configuration for speed, delay, completion and start.
  * @returns An object with the lines to display and a completion status.
  */
 export const useTypewriter = (
@@ -27,6 +29,7 @@ export const useTypewriter = (
     speed = DEFAULT_SPEED,
     lineDelay = DEFAULT_LINE_DELAY,
     onComplete,
+    start = true,
   } = options;
 
   const [displayLines, setDisplayLines] = useState<string[]>([""]); // Array that the UI will actually render
@@ -36,7 +39,7 @@ export const useTypewriter = (
 
   // Effect for typing characters of the current line
   useEffect(() => {
-    if (isComplete || lineIndex >= lines.length) {
+    if (!start || isComplete || lineIndex >= lines.length) {
       return;
     }
 
@@ -57,11 +60,11 @@ export const useTypewriter = (
     }, speed);
 
     return () => clearTimeout(typingTimeout);
-  }, [charIndex, lineIndex, lines, speed, isComplete]);
+  }, [charIndex, lineIndex, lines, speed, isComplete, start]);
 
   // Effect for handling line transitions and completion
   useEffect(() => {
-    if (isComplete || lineIndex >= lines.length) {
+    if (!start || isComplete || lineIndex >= lines.length) {
       return;
     }
 
@@ -82,7 +85,7 @@ export const useTypewriter = (
         onComplete?.();
       }
     }
-  }, [charIndex, lineIndex, lines, lineDelay, onComplete, isComplete]);
+  }, [charIndex, lineIndex, lines, lineDelay, onComplete, isComplete, start]);
 
   return { displayLines, isComplete };
 };
