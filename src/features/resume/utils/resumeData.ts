@@ -5,7 +5,8 @@ export function resumeData(): ResumeEntry[] {
   return [
     {
       id: "job-1",
-      company: "DGFIP - DISI SEOM - ESI Marseille",
+      company:
+        "Ministère des finances - Direction Générale des Finances Publiques",
       role: "Inspecteur Programmeur - Responsable de Service d'Exploitation - IBM z/OS",
       period: "Mai 2024 -- Présent",
       location: "Marseille",
@@ -18,7 +19,7 @@ export function resumeData(): ResumeEntry[] {
     },
     {
       id: "job-2",
-      company: "DGFIP - DISI SEOM - ESI Marseille",
+      company: "DGFIP - Marseille",
       role: "Contrôleur Programmeur - Site National de Sécurité",
       period: "Mai 2023 -- Sep. 2023",
       location: "Marseille",
@@ -30,7 +31,7 @@ export function resumeData(): ResumeEntry[] {
     },
     {
       id: "job-3",
-      company: "DGFIP - DRFIP Paris - SIP Paris 5-6 Saint-Sulpice",
+      company: "DGFIP - Paris",
       role: "Agent Administratif des FIP - Fiscalité des Particuliers",
       period: "Déc 2021 -- Oct. 2022",
       location: "Paris",
