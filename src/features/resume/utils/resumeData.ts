@@ -35,9 +35,8 @@ export function resumeData(): ResumeEntry[] {
       period: "Déc 2021 -- Oct. 2022",
       location: "Paris",
       description: [
-        "Tâches de maintenance de la PKI ESCALE",
-        "Passage d'un accès direct de l'API à l'utilisation de l'APIM DGFIP pour ESCALEv3",
-        "Débogage requêtes HTTP entre client-APIM-API ESCALE",
+        "Calcul de l'impôt (assiette)",
+        "Dégrèvements et gestion des contentieux",
       ],
     },
   ];
