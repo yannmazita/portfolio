@@ -12,8 +12,7 @@ export function resumeData(): ResumeEntry[] {
       location: "Marseille",
       description: [
         "Exécution des traitements par lot JCL",
-        "Veille au bon déroulement de l'activité du service",
-        "Gestion d'une équipe de 8 informaticiens.",
+        "Management d'une équipe de 8 informaticiens.",
         "Prise/Remonté d'informations aux MOA et autres équipes MOE",
       ],
     },
@@ -24,9 +23,9 @@ export function resumeData(): ResumeEntry[] {
       period: "Mai 2023 -- Sep. 2023",
       location: "Marseille",
       description: [
-        "Tâches de maintenance de la PKI ESCALE",
-        "Passage d'un accès direct de l'API à l'utilisation de l'APIM DGFIP pour ESCALEv3",
-        "Débogage requêtes HTTP entre client-APIM-API ESCALE",
+        "Tâches de maintenance de la PKI de la 1ere application interne de transfert de fichiers (ESCALE)",
+        "Passage d'un accès direct à l'API à l'utilisation d'un API Gateway pour l'application",
+        "Débogage requêtes HTTP entre client - API Gateway - API application",
       ],
     },
     {
