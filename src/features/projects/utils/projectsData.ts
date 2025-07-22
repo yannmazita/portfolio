@@ -16,14 +16,10 @@ export function projectsData(): PortfolioProject[] {
         "FastAPI",
         "Postgres",
         "Docker",
-        "Terraform",
-        "Hetzner",
-        "GCP",
-        "Cloudflare",
       ],
       shortDescription: "Geoguessr-inspired, circuit-guessing web game",
       description:
-        "Test your knowledge of motorsport circuits from around the world. Built on a cost-optimized hybrid-cloud architecture (Hetzner, GCP, Cloudflare), fully automated with Terraform and GitHub Actions CI/CD.",
+        "Built on a hybrid-cloud architecture (Hetzner, GCP, Cloudflare), Terraform IaC and GitHub Actions CI/CD.",
     },
     {
       name: "playlistworks",
