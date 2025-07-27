@@ -6,7 +6,7 @@ interface MetaProps {
 }
 
 const APP_NAME = "Yann Mazita";
-const DEFAULT_DESCRIPTION = "Yann Mazita's portfolio";
+const DEFAULT_DESCRIPTION = "Yann Mazita";
 
 export const Meta: React.FC<MetaProps> = ({
   title,
