@@ -40,7 +40,7 @@ export const ResumeSection: React.FC = () => {
           Service Record
         </h2>
         <a
-          href={getAssetUrl("/resume/cv_mazita_yann_01.pdf")}
+          href={getAssetUrl("/resume/cv_mazita_yann.pdf")}
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
