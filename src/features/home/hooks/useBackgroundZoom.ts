@@ -25,7 +25,7 @@ export const useBackgroundZoom = (options: BackgroundZoomOptions = {}) => {
     transformOrigin = "center center",
     fadeDelay = 200,
     onComplete,
-    easing = easingFunctions.easeOut,
+    easing = easingFunctions.easeInOut,
   } = options;
 
   useEffect(() => {
