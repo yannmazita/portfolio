@@ -6,6 +6,7 @@ import { StatusBar } from "@/features/status/components/StatusBar";
 import { useAnimationStore } from "@/core/stores/useAnimationStore";
 import { cn } from "@/common/shadcn/lib/utils";
 import { useEffect } from "react";
+import { ResponsiveBackground } from "./ResponsiveBackground";
 
 export const Layout: React.FC = () => {
   const { topMounted, triggerMountAnimation } = useAnimationStore();
@@ -24,6 +25,7 @@ export const Layout: React.FC = () => {
         "bg-[size:100%_4px]",
       )}
     >
+      <ResponsiveBackground />
       <header
         className={cn(
           "sticky top-0 z-50",

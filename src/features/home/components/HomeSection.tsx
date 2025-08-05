@@ -1,11 +1,10 @@
 // src/features/home/components/HomeSection.tsx
 import { useEffect, useState } from "react";
-import { useBackgroundZoom } from "../hooks/useBackgroundZoom";
 import { useTypewriter } from "../hooks/useTypewriter";
 import { Terminal } from "./Terminal";
 import { SystemStats } from "./SystemStats";
 import { Meta } from "@/common/components/Meta";
-import { useResponsiveLaptop } from "../hooks/useResponsiveBackground";
+import { useHomeAnimationStore } from "@/core/stores/useHomeAnimationStore";
 
 const TYPING_SEQUENCE: string[] = [
   "Connecting to console...",
@@ -15,24 +14,22 @@ const TYPING_SEQUENCE: string[] = [
 ];
 
 export const HomeSection: React.FC = () => {
-  const laptopImage = useResponsiveLaptop();
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [startTyping, setStartTyping] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const isZoomComplete = useHomeAnimationStore((state) => state.isZoomComplete);
 
-  // Laptop zoom animation
-  const { zoomScale, isAnimationComplete, showContent, zoomStyle } =
-    useBackgroundZoom({
-      duration: 3500,
-      targetZoomScale: 15,
-      transformOrigin: `${laptopImage.screenPosition.x} ${laptopImage.screenPosition.y}`,
-      fadeDelay: 300,
-      onComplete: () => {
-        // Start the typing animation after laptop reveal completes
+  // Start typing animation when the zoom is complete
+  useEffect(() => {
+    if (isZoomComplete) {
+      // A small delay to allow the fade-in to start
+      setTimeout(() => {
+        setShowContent(true);
         setStartTyping(true);
-      },
-    });
+      }, 100);
+    }
+  }, [isZoomComplete]);
 
-  // Terminal typing animation - only starts after laptop animation
+  // Terminal typing animation
   const { displayLines, isComplete } = useTypewriter(
     startTyping ? TYPING_SEQUENCE : [],
     {
@@ -41,63 +38,24 @@ export const HomeSection: React.FC = () => {
     },
   );
 
-  // Preload laptop image
-  useEffect(() => {
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.src = laptopImage.src;
-  }, [laptopImage.src]);
-
   return (
     <>
       <Meta title="Home" description="Yann Mazita - Portfolio" />
 
-      <section className="relative h-screen w-full overflow-hidden bg-black">
-        {/* Laptop zoom animation layer */}
-        {imageLoaded && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-              isAnimationComplete ? "opacity-0" : "opacity-100"
-            }`}
-            style={zoomStyle}
-          >
-            <img
-              src={laptopImage.src}
-              alt="Laptop opening portal"
-              className="h-auto w-full max-w-none object-cover object-center"
-              style={{
-                minHeight: "100vh",
-                objectPosition: "center center",
-              }}
-              draggable={false}
-            />
-          </div>
-        )}
-
+      <section className="relative flex h-full w-full items-center justify-center">
         {/* Terminal and SystemStats content */}
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center text-center transition-opacity duration-1000 ${
+          className={`flex flex-col items-center justify-center text-center transition-opacity duration-1000 ${
             showContent ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
-          {showContent && (
-            <div className="mb-16 flex flex-col items-center justify-center px-8">
-              <Terminal lines={displayLines} isComplete={isComplete} />
-              {isComplete && (
-                <SystemStats startAnimations={isComplete} className="mt-12" />
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Loading state */}
-        {!imageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black">
-            <div className="animate-pulse text-sm text-white/60">
-              Loading...
-            </div>
+          <div className="mb-16 flex flex-col items-center justify-center px-8">
+            <Terminal lines={displayLines} isComplete={isComplete} />
+            {isComplete && (
+              <SystemStats startAnimations={isComplete} className="mt-12" />
+            )}
           </div>
-        )}
+        </div>
       </section>
     </>
   );

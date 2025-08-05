@@ -544,5 +544,5 @@ export const useLightning = (
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [canvasRef, options]);
+  }, [canvasRef, JSON.stringify(options)]);
 };
