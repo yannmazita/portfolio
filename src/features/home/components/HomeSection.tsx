@@ -19,10 +19,7 @@ export const HomeSection: React.FC = () => {
 
   return (
     <section className="flex flex-col items-center justify-center text-center">
-      <Meta
-        title="Home"
-        description="The personal portfolio of Yann Mazita, a software developer. Discover my projects, skills, and professional experience."
-      />
+      <Meta title="Home" description="Yann Mazita - Portfolio" />
 
       <div className="mb-16 flex flex-col items-center justify-center">
         <Terminal lines={displayLines} isComplete={isComplete} />
