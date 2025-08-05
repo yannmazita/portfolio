@@ -13,42 +13,42 @@ interface LaptopImageData {
   screenPosition: { x: string; y: string };
 }
 
-// these ratios are incorrect and for testing
+// Based on: screen center at (2806.5, 7041.5) in 5632×14393 canvas
 const laptopImages: LaptopImageData[] = [
   {
     src: getAssetUrl("images/laptop_375px_wide.webp"),
     width: 375,
-    screenPosition: { x: "52%", y: "42%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
   {
     src: getAssetUrl("images/laptop_430px_wide.webp"),
     width: 430,
-    screenPosition: { x: "52.1%", y: "41.8%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
   {
     src: getAssetUrl("images/laptop_768px_wide.webp"),
     width: 768,
-    screenPosition: { x: "52.3%", y: "41.7%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
   {
     src: getAssetUrl("images/laptop_1024px_wide.webp"),
     width: 1024,
-    screenPosition: { x: "52.2%", y: "41.9%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
   {
     src: getAssetUrl("images/laptop_1920px_wide.webp"),
     width: 1920,
-    screenPosition: { x: "50%", y: "50%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
   {
     src: getAssetUrl("images/laptop_2560px_wide.webp"),
     width: 2560,
-    screenPosition: { x: "52.2%", y: "41.9%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
   {
     src: getAssetUrl("images/laptop_3840px_wide.webp"),
     width: 3840,
-    screenPosition: { x: "52.2%", y: "41.9%" },
+    screenPosition: { x: "49.83%", y: "48.93%" },
   },
 ];
 
@@ -59,13 +59,14 @@ const useResponsiveLaptop = () => {
 
   useEffect(() => {
     const updateImage = () => {
-      const containerWidth = window.innerWidth;
+      const viewportWidth = window.innerWidth;
 
+      // Find the largest image that is <= viewport width (closest lower width)
+      // If no image is smaller than viewport, use the smallest available
       const appropriate =
         laptopImages
-          .filter((img) => img.width >= containerWidth)
-          .sort((a, b) => a.width - b.width)[0] ||
-        laptopImages[laptopImages.length - 1];
+          .filter((img) => img.width <= viewportWidth)
+          .sort((a, b) => b.width - a.width)[0] || laptopImages[0];
 
       setSelectedImage(appropriate);
     };
@@ -94,9 +95,9 @@ export const HomeSection: React.FC = () => {
   const { zoomScale, isAnimationComplete, showContent, zoomStyle } =
     useBackgroundZoom({
       duration: 3500,
-      targetZoomScale: 20,
+      targetZoomScale: 15,
       transformOrigin: `${laptopImage.screenPosition.x} ${laptopImage.screenPosition.y}`,
-      fadeDelay: 0,
+      fadeDelay: 300,
       onComplete: () => {
         // Start the typing animation after laptop reveal completes
         setStartTyping(true);
@@ -117,7 +118,6 @@ export const HomeSection: React.FC = () => {
     const img = new Image();
     img.onload = () => setImageLoaded(true);
     img.src = laptopImage.src;
-    console.log(img.src);
   }, [laptopImage.src]);
 
   return (
@@ -136,7 +136,11 @@ export const HomeSection: React.FC = () => {
             <img
               src={laptopImage.src}
               alt="Laptop opening portal"
-              className="h-full w-auto max-w-none object-contain"
+              className="h-auto w-full max-w-none object-cover object-center"
+              style={{
+                minHeight: "100vh",
+                objectPosition: "center center",
+              }}
               draggable={false}
             />
           </div>
