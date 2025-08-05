@@ -36,7 +36,7 @@ export const useBackgroundZoom = (options: BackgroundZoomOptions = {}) => {
         startTimeRef.current = currentTime;
       }
 
-      const elapsed = currentTime - startTimeRef.current;
+      const elapsed = currentTime - (startTimeRef.current ?? 0);
       const progress = Math.min(elapsed / duration, 1); // Clamp to 1
 
       // Apply easing to progress
@@ -84,7 +84,7 @@ export const useBackgroundZoom = (options: BackgroundZoomOptions = {}) => {
     setZoomScale(1);
     setIsAnimationComplete(false);
     setShowContent(false);
-    startTimeRef.current = undefined;
+    startTimeRef.current = null;
 
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
