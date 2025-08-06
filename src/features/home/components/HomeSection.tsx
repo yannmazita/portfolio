@@ -1,11 +1,11 @@
 // src/features/home/components/HomeSection.tsx
 import { useEffect, useState } from "react";
-import { useBackgroundZoom } from "../hooks/useBackgroundZoom";
+import { useBackgroundZoom } from "@/common/hooks/useBackgroundZoom";
 import { useTypewriter } from "../hooks/useTypewriter";
 import { Terminal } from "./Terminal";
 import { SystemStats } from "./SystemStats";
 import { Meta } from "@/common/components/Meta";
-import { useResponsiveLaptop } from "../hooks/useResponsiveBackground";
+import { useResponsiveLaptop } from "@/common/hooks/useResponsiveBackground";
 
 const TYPING_SEQUENCE: string[] = [
   "Connecting to console...",
