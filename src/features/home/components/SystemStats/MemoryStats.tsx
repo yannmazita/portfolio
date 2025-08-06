@@ -1,4 +1,4 @@
-import { ProgressBar } from "./ProgressBar";
+import { ProgressBar } from "@/features/home/components/SystemStats/ProgressBar";
 
 interface Stat {
   used: number;

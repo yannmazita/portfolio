@@ -1,9 +1,9 @@
 import { cn } from "@/common/shadcn/lib/utils";
-import { useLiveStats } from "../hooks/useLiveStats";
-import { CpuStats } from "./CpuStats";
-import { MemoryStats } from "./MemoryStats";
-import { ProcessList } from "./ProcessList";
-import { SystemStatsHeader } from "./SystemStatsHeader";
+import { useLiveStats } from "@/features/home/hooks/useLiveStats";
+import { CpuStats } from "@/features/home/components/SystemStats/CpuStats";
+import { MemoryStats } from "@/features/home/components/SystemStats/MemoryStats";
+import { ProcessList } from "@/features/home/components/SystemStats/ProcessList";
+import { SystemStatsHeader } from "@/features/home/components/SystemStats/SystemStatsHeader";
 
 interface SystemStatsProps {
   className?: string;

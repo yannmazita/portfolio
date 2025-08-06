@@ -1,6 +1,6 @@
 // src/features/home/components/TypedText.tsx
 import { cn } from "@/common/shadcn/lib/utils";
-import { useSimpleTypewriter } from "../hooks/useSimpleTypewriter";
+import { useSimpleTypewriter } from "@/features/home/hooks/useSimpleTypewriter";
 
 /**
  * @interface TypedTextProps

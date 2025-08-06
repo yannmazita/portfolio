@@ -1,7 +1,7 @@
 // src/features/home/components/CpuStats.tsx
-import { ProgressBar } from "./ProgressBar";
-import { CPU_CORES } from "../utils/stats-data";
-import { TypedText } from "./TypedText";
+import { ProgressBar } from "@/features/home/components/SystemStats/ProgressBar";
+import { CPU_CORES } from "@/features/home/utils/stats-data";
+import { TypedText } from "@/features/home/components/SystemStats/TypedText";
 
 /**
  * @interface CpuStatsProps

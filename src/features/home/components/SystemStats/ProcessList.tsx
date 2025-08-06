@@ -1,4 +1,4 @@
-import { PROCESS_LIST } from "../utils/stats-data";
+import { PROCESS_LIST } from "@/features/home/utils/stats-data";
 import { TypedText } from "./TypedText";
 
 /**

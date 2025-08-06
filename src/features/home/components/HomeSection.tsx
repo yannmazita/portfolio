@@ -1,9 +1,9 @@
 // src/features/home/components/HomeSection.tsx
 import { useEffect, useState } from "react";
 import { useBackgroundZoom } from "@/common/hooks/useBackgroundZoom";
-import { useTypewriter } from "../hooks/useTypewriter";
-import { Terminal } from "./Terminal";
-import { SystemStats } from "./SystemStats";
+import { useTypewriter } from "@/features/home/hooks/useTypewriter";
+import { Terminal } from "@/features/home/components/Terminal";
+import { SystemStats } from "@/features/home/components/SystemStats/SystemStats";
 import { Meta } from "@/common/components/Meta";
 import { useResponsiveLaptop } from "@/common/hooks/useResponsiveBackground";
 
