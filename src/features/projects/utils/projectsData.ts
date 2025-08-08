@@ -57,6 +57,7 @@ export function projectsData(): PortfolioProject[] {
       description:
         "Drawing inspiration specifically from the early 2000s era of fast and nimble websites, Flash animations and Electroclash music.",
     },
+    /*
     {
       name: "step.ts",
       mediaUrl: "some/link",
@@ -66,5 +67,6 @@ export function projectsData(): PortfolioProject[] {
       description:
         "Virtual step sequencer allowing to create music on the web.",
     },
+    */
   ];
 }
