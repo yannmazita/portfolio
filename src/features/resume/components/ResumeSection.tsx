@@ -31,7 +31,7 @@ export const ResumeSection: React.FC = () => {
       <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
         <h2
           className={cn(
-            "font-mono text-2xl font-bold tracking-widest text-white uppercase md:text-3xl",
+            "text-portfolio-secondary font-mono text-2xl font-bold tracking-widest uppercase md:text-3xl",
             "animate-in fade-in duration-500",
             textMounted ? "opacity-100" : "opacity-0",
           )}
@@ -78,7 +78,7 @@ export const ResumeSection: React.FC = () => {
       <div className="mt-12 flex w-full flex-col items-start">
         <h2
           className={cn(
-            "font-mono text-2xl font-bold tracking-widest text-white uppercase md:text-3xl",
+            "text-portfolio-secondary font-mono text-2xl font-bold tracking-widest uppercase md:text-3xl",
             "animate-in fade-in duration-500",
             textMounted ? "opacity-100" : "opacity-0",
           )}

@@ -55,7 +55,7 @@ export const ProjectsSection: React.FC = () => {
       />
 
       {/* Project name */}
-      <h1 className="flex justify-center font-mono text-xl font-bold text-white">
+      <h1 className="flex justify-center font-mono text-xl font-bold text-black">
         {projects[projectIndex].name}
       </h1>
 
@@ -85,7 +85,7 @@ export const ProjectsSection: React.FC = () => {
             loop
             muted
             playsInline
-            className="h-full w-full object-cover text-white"
+            className="h-full w-full object-cover text-black"
             aria-label={`${projects[projectIndex].name} timelapse`}
             poster={projects[projectIndex].thumbnailUrl}
           >
@@ -97,12 +97,12 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Short description */}
-      <div className="flex min-h-20 flex-col justify-center text-center font-mono text-white md:min-h-fit">
+      <div className="flex min-h-20 flex-col justify-center text-center font-mono text-black md:min-h-fit">
         {projects[projectIndex].shortDescription}
       </div>
 
       {/* Tech stack */}
-      <div className="min-h-20 font-mono font-bold text-white">
+      <div className="min-h-20 font-mono font-bold text-black">
         {projects[projectIndex].techStack &&
           projects[projectIndex].techStack.length > 0 && (
             <div className="mt-4 flex flex-wrap justify-center gap-2 py-1">
@@ -119,7 +119,7 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Longer Description */}
-      <div className="flex min-h-24 flex-col justify-center text-center font-mono text-sm text-white md:min-h-fit md:text-lg">
+      <div className="flex min-h-24 flex-col justify-center text-center font-mono text-sm text-black md:min-h-fit md:text-lg">
         {projects[projectIndex].description}
       </div>
 
