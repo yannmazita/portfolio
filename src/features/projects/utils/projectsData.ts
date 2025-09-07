@@ -5,6 +5,23 @@ import { getAssetUrl } from "@/common/utils/assets";
 export function projectsData(): PortfolioProject[] {
   return [
     {
+      name: "webgpu-test",
+      mediaUrl: getAssetUrl("videos/engine_demo_web.m4v"),
+      //thumbnailUrl: getAssetUrl("thumbnails/engine_demo_web.jpg"),
+      projectLink: "https://www.github.com/yannmazita/webgpu-test",
+      techStack: [
+        "TypeScript",
+        "WGSL",
+        "WebGPU",
+        "3D Rendering",
+        "GPU",
+        "Shaders",
+      ],
+      shortDescription: "Testing bed for GPU programming",
+      description:
+        "A custom high-performance WebGPU engine featuring a multi-threaded ECS and clustered forward rendering. Built from scratch.",
+    },
+    {
       name: "apexguessr",
       mediaUrl: getAssetUrl("videos/apexguessr.mp4"),
       //thumbnailUrl: getAssetUrl("thumbnails/apexguessr.jpg"),
