@@ -6,7 +6,7 @@ export function projectsData(): PortfolioProject[] {
   return [
     {
       name: "webgpu-test",
-      mediaUrl: getAssetUrl("videos/engine_demo_15-09-25.m4v"),
+      mediaUrl: getAssetUrl("videos/engine_demo_15-09-2025.m4v"),
       //thumbnailUrl: getAssetUrl("thumbnails/engine_demo_web.jpg"),
       projectLink: "https://www.github.com/yannmazita/webgpu-test",
       techStack: [
