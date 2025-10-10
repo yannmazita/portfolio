@@ -3,8 +3,8 @@ import { writeFileSync } from "fs";
 import { SitemapStream, streamToPromise } from "sitemap";
 
 const PROD_DOMAIN = "https://mazita.dev";
-// public-facing, indexable routes.
-const publicRoutes: string[] = ["/"];
+
+const publicRoutes: string[] = ["/", "/projects", "/resume", "/skills"];
 
 async function generateSitemap() {
   console.log("Generating sitemap...");
@@ -14,9 +14,9 @@ async function generateSitemap() {
   publicRoutes.forEach((route) => {
     stream.write({
       url: route,
-      changefreq: "weekly", // Default change frequency
-      priority: route === "/" ? 1.0 : 0.8, // homepage higher priority
-      lastmod: new Date().toISOString().split("T")[0], // Set lastmod to today's date
+      changefreq: "weekly",
+      priority: route === "/" ? 1.0 : 0.8,
+      lastmod: new Date().toISOString().split("T")[0],
     });
   });
 
@@ -29,7 +29,7 @@ async function generateSitemap() {
     console.log(`Sitemap successfully generated at ${outputPath}`);
   } catch (error) {
     console.error("Error generating sitemap:", error);
-    process.exit(1); // Exit with an error code to fail the build
+    process.exit(1);
   }
 }
 
