@@ -4,7 +4,9 @@ import { SitemapStream, streamToPromise } from "sitemap";
 
 const PROD_DOMAIN = "https://mazita.dev";
 
-const publicRoutes: string[] = ["/", "/projects", "/resume", "/skills"];
+// only root as we're using hash routes
+// Google will discover other routes through internal links
+const publicRoutes: string[] = ["/"]; // hash routes aren't indexed separately
 
 async function generateSitemap() {
   console.log("Generating sitemap...");
@@ -15,7 +17,7 @@ async function generateSitemap() {
     stream.write({
       url: route,
       changefreq: "weekly",
-      priority: route === "/" ? 1.0 : 0.8,
+      priority: 1.0, // Root page is highest priority
       lastmod: new Date().toISOString().split("T")[0],
     });
   });
