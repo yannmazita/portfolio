@@ -6,20 +6,20 @@ export function projectsData(): PortfolioProject[] {
   return [
     {
       name: "webgpu-test",
-      mediaUrl: getAssetUrl("videos/engine_demo_19-09-2025.m4v"),
+      mediaUrl: getAssetUrl("videos/engine_demo_19-09-2025.mp4"),
       //thumbnailUrl: getAssetUrl("thumbnails/engine_demo_web.jpg"),
       projectLink: "https://www.github.com/yannmazita/webgpu-test",
       techStack: [
         "TypeScript",
         "WGSL",
         "WebGPU",
-        "3D Rendering",
-        "GPU",
+        "Game Engine",
+        "ECS",
         "Shaders",
       ],
       shortDescription: "Testing bed for GPU programming",
       description:
-        "A custom high-performance WebGPU engine featuring a multi-threaded ECS and clustered forward rendering. Built from scratch.",
+        "'no-name' custom WebGPU game engine, built from scratch in Typescript. Features get imlemented on a almost daily schedule.",
     },
     {
       name: "apexguessr",
