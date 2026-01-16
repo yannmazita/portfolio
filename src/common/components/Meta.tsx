@@ -9,7 +9,7 @@ interface MetaProps {
 
 const APP_NAME = "Yann Mazita";
 const DEFAULT_DESCRIPTION =
-  "Developer specializing in React, Python, TypeScript, and full-stack development.";
+  "Developer specializing in React, Python, TypeScript, and full-stack development. Portfolio of Yann Mazita (Yann-Patrick Mazita Kiaka).";
 
 export const Meta: React.FC<MetaProps> = ({
   title,
