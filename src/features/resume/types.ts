@@ -15,3 +15,12 @@ export interface EducationEntry {
   period: string;
   location: string;
 }
+
+export interface CertificationEntry {
+  id: string;
+  name: string;
+  issuer: string;
+  period: string;
+  credentialId?: string;
+  description: string[];
+}

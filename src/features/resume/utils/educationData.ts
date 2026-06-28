@@ -6,7 +6,7 @@ export function educationData(): EducationEntry[] {
     {
       id: "edu-3",
       institution: "ENFIP Toulouse",
-      degree: "Stage théorique Inspecteur Programmeur Système d'Exploitation",
+      degree: "Stage théorique Inspecteur Programmeur Systèmes d'Exploitation",
       period: "Sep. 2023 -- Mai 2024",
       location: "Toulouse",
     },
