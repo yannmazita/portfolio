@@ -5,77 +5,120 @@ import { resumeData } from "../utils/resumeData";
 import { cn } from "@/common/shadcn/lib/utils";
 import { educationData } from "../utils/educationData";
 import { EducationCard } from "./EducationCard";
+import { certificationData } from "../utils/certificationData";
+import { CertificationCard } from "./CertificationCard";
 import { getAssetUrl } from "@/common/utils/assets";
 import { Meta } from "@/common/components/Meta";
 
 export const ResumeSection: React.FC = () => {
   const textMounted = useAnimationStore((state) => state.textMounted);
   const experienceEntries = resumeData();
+  const certificationEntries = certificationData();
   const educationEntries = educationData();
 
   // Calculate delays for animation choreography
   const baseExperienceDelay = 300;
   const experienceStagger = 150;
-  const formationDelay =
+
+  const certificationDelay =
     baseExperienceDelay + experienceEntries.length * experienceStagger;
+  const certificationStagger = 150;
+
+  const formationDelay =
+    certificationDelay + certificationEntries.length * certificationStagger;
   const educationStagger = 150;
 
   return (
-    <section className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center p-4">
+    <section className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-y-12 p-4">
       <Meta
         title="Resume"
-        description="Checkout my resume featuring my work experence and education."
+        description="Checkout my resume featuring my work experience, cloud certifications, and education."
       />
 
       {/* Experience Section */}
-      <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
+      <div className="w-full">
+        <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
+          <h2
+            className={cn(
+              "font-mono text-2xl font-bold tracking-widest text-white uppercase md:text-3xl",
+              "animate-in fade-in duration-500",
+              textMounted ? "opacity-100" : "opacity-0",
+            )}
+            style={{ transitionDelay: textMounted ? "100ms" : "0ms" }}
+          >
+            Service Record
+          </h2>
+          <a
+            href={getAssetUrl("/resume/cv_mazita_yann_06-2026.pdf")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "clip-bl bg-portfolio-primary hover:bg-portfolio-secondary flex h-11 w-48 items-center justify-center px-4 font-mono text-sm font-bold text-white transition-colors",
+              "animate-in fade-in duration-500",
+              textMounted ? "opacity-100" : "opacity-0",
+            )}
+            style={{
+              transitionDelay: textMounted ? "200ms" : "0ms",
+            }}
+          >
+            DOWNLOAD PDF
+          </a>
+        </div>
+
+        <div className="mt-4 grid w-full grid-cols-1 gap-6">
+          {experienceEntries.map((entry, index) => (
+            <ResumeEntryCard
+              key={entry.id}
+              entry={entry}
+              className={cn(
+                "animate-in fade-in-0 slide-in-from-top-8 duration-500",
+                textMounted ? "opacity-100" : "opacity-0",
+              )}
+              style={{
+                transitionDelay: textMounted
+                  ? `${baseExperienceDelay + index * experienceStagger}ms`
+                  : "0ms",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Certifications Section */}
+      <div className="w-full">
         <h2
           className={cn(
             "font-mono text-2xl font-bold tracking-widest text-white uppercase md:text-3xl",
             "animate-in fade-in duration-500",
             textMounted ? "opacity-100" : "opacity-0",
           )}
-          style={{ transitionDelay: textMounted ? "100ms" : "0ms" }}
-        >
-          Service Record
-        </h2>
-        <a
-          href={getAssetUrl("/resume/cv_mazita_yann.pdf")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            "clip-bl bg-portfolio-primary hover:bg-portfolio-secondary flex h-11 w-48 items-center justify-center px-4 font-mono text-sm font-bold text-white transition-colors",
-            "animate-in fade-in duration-500",
-            textMounted ? "opacity-100" : "opacity-0",
-          )}
           style={{
-            transitionDelay: textMounted ? "200ms" : "0ms",
+            transitionDelay: textMounted ? `${certificationDelay}ms` : "0ms",
           }}
         >
-          DOWNLOAD PDF
-        </a>
-      </div>
-
-      <div className="mt-4 grid w-full grid-cols-1 gap-6">
-        {experienceEntries.map((entry, index) => (
-          <ResumeEntryCard
-            key={entry.id}
-            entry={entry}
-            className={cn(
-              "animate-in fade-in-0 slide-in-from-top-8 duration-500",
-              textMounted ? "opacity-100" : "opacity-0",
-            )}
-            style={{
-              transitionDelay: textMounted
-                ? `${baseExperienceDelay + index * experienceStagger}ms`
-                : "0ms",
-            }}
-          />
-        ))}
+          Certifications
+        </h2>
+        <div className="mt-4 grid w-full grid-cols-1 gap-6">
+          {certificationEntries.map((entry, index) => (
+            <CertificationCard
+              key={entry.id}
+              entry={entry}
+              className={cn(
+                "animate-in fade-in-0 slide-in-from-top-4 duration-500",
+                textMounted ? "opacity-100" : "opacity-0",
+              )}
+              style={{
+                transitionDelay: textMounted
+                  ? `${certificationDelay + 100 + index * certificationStagger}ms`
+                  : "0ms",
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Education Section */}
-      <div className="mt-12 flex w-full flex-col items-start">
+      <div className="w-full">
         <h2
           className={cn(
             "font-mono text-2xl font-bold tracking-widest text-white uppercase md:text-3xl",
@@ -99,7 +142,7 @@ export const ResumeSection: React.FC = () => {
               )}
               style={{
                 transitionDelay: textMounted
-                  ? `${formationDelay + 150 + index * educationStagger}ms`
+                  ? `${formationDelay + 100 + index * educationStagger}ms`
                   : "0ms",
               }}
             />
